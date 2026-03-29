@@ -10,7 +10,7 @@ A comprehensive pharmaceutical analysis platform consisting of a FastAPI backend
 - [Quick Start](#quick-start)
 - [Environment Configuration](#environment-configuration)
 - [Project Structure](#project-structure)
-- [Backend features map](#where-major-backend-features-live)
+- [Backend features map](#where-major-backend-features-live) 
 - [API Documentation](#api-documentation)
 - [Troubleshooting](#troubleshooting)
 
