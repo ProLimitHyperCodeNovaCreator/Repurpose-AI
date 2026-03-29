@@ -64,7 +64,7 @@ Before you begin, ensure you have the following installed:
 ### 1. Clone the Repository
 
 ```bash
-cd "/Users/bhuvesh/Case Study/ET PharmAI"
+cd "~/Downloads/ET-Gen-AI-Hackathon-Team-bhuvesh18"
 ```
 
 ### 2. Backend Setup (Agentichost)
