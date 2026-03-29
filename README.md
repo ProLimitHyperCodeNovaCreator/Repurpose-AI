@@ -2,6 +2,8 @@
 
 A comprehensive pharmaceutical analysis platform consisting of a FastAPI backend and a React frontend (PharmAI) that provides intelligent pharmaceutical market research and analysis capabilities.
 
+## VIDEO LINK: https://drive.google.com/file/d/1Xm_jLXXHV3IJCCvUA35PVe857PgI0Nxw/view?usp=sharing
+
 ## 📋 Table of Contents
 
 - [Project Overview](#project-overview)
