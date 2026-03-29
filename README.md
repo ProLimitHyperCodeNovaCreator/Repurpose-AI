@@ -1,6 +1,6 @@
 # ET PharmAI - Pharmaceutical Analysis Platform
 
-A comprehensive pharmaceutical analysis platform consisting of a FastAPI backend (Agentichost) and a React frontend (PharmAI) that provides intelligent pharmaceutical market research and analysis capabilities.
+A comprehensive pharmaceutical analysis platform consisting of a FastAPI backend and a React frontend (PharmAI) that provides intelligent pharmaceutical market research and analysis capabilities.
 
 ## 📋 Table of Contents
 
@@ -27,7 +27,7 @@ ET PharmAI is an AI-powered pharmaceutical analysis platform that enables users 
 
 The project consists of two main components:
 
-1. **Agentichost (Backend)**: One FastAPI process hosts every capability—classic ET analysis (`/api/run-agent`, PDF export, clinical-trials helpers) and extended APIs (search, chat, knowledge base, files, auth, WebSocket progress). There is no separate backend service or second Uvicorn app in this repository.
+1. **backend (Backend)**: One FastAPI process hosts every capability—classic ET analysis (`/api/run-agent`, PDF export, clinical-trials helpers) and extended APIs (search, chat, knowledge base, files, auth, WebSocket progress). There is no separate backend service or second Uvicorn app in this repository.
 2. **PharmAI (Frontend)**: React + Vite single-page application
 
 ```
@@ -38,7 +38,7 @@ The project consists of two main components:
          │ HTTP/REST + WebSocket
          │
 ┌────────▼────────┐
-│  Agentichost    │  Single FastAPI app (Port 8000)
+│     Backend     │  Single FastAPI app (Port 8000)
 │   (Backend)     │
 └─────────────────┘
          │
@@ -67,11 +67,11 @@ Before you begin, ensure you have the following installed:
 cd "~/Downloads/ET-Gen-AI-Hackathon-Team-bhuvesh18"
 ```
 
-### 2. Backend Setup (Agentichost)
+### 2. Backend Setup (backend)
 
 ```bash
 # Navigate to backend directory
-cd Agentichost-main
+cd backend
 
 # Create virtual environment
 python3 -m venv venv
@@ -101,7 +101,7 @@ Open a new terminal window:
 
 ```bash
 # Navigate to frontend directory
-cd PharmAI-main
+cd frontend
 
 # Install dependencies
 npm install
@@ -125,12 +125,12 @@ http://localhost:5173
 
 ## ⚙️ Environment Configuration
 
-### Backend (.env) - Agentichost
+### Backend (.env) - backend
 
-**Step 1:** Navigate to the `Agentichost-main` directory:
+**Step 1:** Navigate to the `backend` directory:
 
 ```bash
-cd Agentichost-main
+cd backend
 ```
 
 **Step 2:** Create a `.env` file manually:
@@ -162,10 +162,10 @@ GEMINI_API_KEY=your_gemini_api_key_here
 
 ### Frontend (.env) - PharmAI
 
-**Step 1:** Navigate to the `PharmAI-main` directory:
+**Step 1:** Navigate to the `frontend` directory:
 
 ```bash
-cd PharmAI-main
+cd frontend
 ```
 
 **Step 2:** Create a `.env` file manually:
@@ -182,7 +182,7 @@ touch .env
 
 ```env
 # API Configuration
-# Backend API URL - should match the PORT in Agentichost .env
+# Backend API URL - should match the PORT in backend .env
 VITE_API_URL=http://localhost:8000
 ```
 
@@ -195,7 +195,7 @@ VITE_API_URL=http://localhost:8000
 
 ```
 ET PharmAI/
-├── Agentichost-main/          # Backend (single FastAPI app)
+├── backend/          # Backend (single FastAPI app)
 │   ├── main.py                # Entry: builds app, registers all routes
 │   ├── app/
 │   │   ├── platform_bootstrap.py   # Extended routes, /health, /platform, WS, startup hooks
@@ -222,7 +222,7 @@ ET PharmAI/
 │   ├── requirements.txt
 │   └── .env
 │
-└── PharmAI-main/              # Frontend (React + Vite)
+└── frontend/              # Frontend (React + Vite)
     ├── src/
     │   ├── api/
     │   ├── components/
@@ -234,7 +234,7 @@ ET PharmAI/
 
 ### Where major backend features live
 
-| Capability | Implemented? | Location (under `Agentichost-main/`) |
+| Capability | Implemented? | Location (under `backend/`) |
 |------------|--------------|--------------------------------------|
 | **Redis** | **No** — not used anywhere in this repo. Caching is file-based JSON. | — |
 | **Disk cache** | Yes | `app/services/repurpose/cache/cache_manager.py`, `data/cache/` |
@@ -295,7 +295,7 @@ Generate a PDF report from analysis text.
 ### Backend Development
 
 ```bash
-cd Agentichost-main
+cd backend
 source venv/bin/activate  # Activate virtual environment
 python main.py            # Run development server
 ```
@@ -303,7 +303,7 @@ python main.py            # Run development server
 ### Frontend Development
 
 ```bash
-cd PharmAI-main
+cd frontend
 npm run dev              # Start Vite dev server with HMR
 npm run build            # Build for production
 npm run preview          # Preview production build
@@ -314,7 +314,7 @@ npm run preview          # Preview production build
 ### Backend Issues
 
 **Issue: `GEMINI_API_KEY not found`**
-- Solution: Ensure your `.env` file exists in `Agentichost-main/` and contains a valid `GEMINI_API_KEY`
+- Solution: Ensure your `.env` file exists in `backend/` and contains a valid `GEMINI_API_KEY`
 
 **Issue: `Port already in use`**
 - Solution: Change the `PORT` value in your `.env` file or stop the process using that port
@@ -366,5 +366,5 @@ npm run preview          # Preview production build
 ---
 
 For more detailed information about each component, refer to:
-- [Agentichost README](./Agentichost-main/README.md)
-- [PharmAI README](./PharmAI-main/README.md)
+- [backend README](./backend/README.md)
+- [PharmAI README](./frontend/README.md)
