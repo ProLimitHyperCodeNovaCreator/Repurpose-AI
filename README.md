@@ -363,7 +363,13 @@ npm run preview          # Preview production build
 
 ## 👥 Contributors
 
-[Add contributor information here]
+## 👨‍💻 My Contribution
+
+- Contributed to project documentation and improved README structure for better usability
+- Assisted in building and understanding responsive Agentic AI workflows using FastAPI and LLM integrations
+- Contributed to concepts and implementation of Generative AI features for pharmaceutical analysis
+- Supported testing, debugging, and validation of backend APIs and frontend integration
+- Collaborated with team members on overall system design and feature development
 
 ---
 
