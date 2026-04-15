@@ -183,7 +183,7 @@ const Chat: React.FC = () => {
   };
 
   return (
-    <div className="flex h-[calc(100vh-3.5rem-2rem)] lg:h-[calc(100vh-3.5rem-3rem)] -m-4 lg:-m-6 rounded-xl overflow-hidden border border-slate-200/90 bg-white/80 shadow-sm shadow-slate-200/50">
+    <div className="flex h-[calc(100vh-3.5rem-2rem)] lg:h-[calc(100vh-3.5rem-3rem)] -m-4 lg:-m-6 rounded-xl overflow-hidden border border-slate-200/90 dark:border-zinc-800 bg-white/80 dark:bg-black shadow-sm shadow-slate-200/50 dark:shadow-none">
       <AnimatePresence>
         {sidebarOpen && (
           <motion.aside
@@ -191,14 +191,14 @@ const Chat: React.FC = () => {
             animate={{ width: 280, opacity: 1 }}
             exit={{ width: 0, opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="flex flex-col border-r border-slate-200 bg-slate-50/90 overflow-hidden"
+            className="flex flex-col border-r border-slate-200 dark:border-zinc-800 bg-slate-50/90 dark:bg-black overflow-hidden"
           >
-            <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200">
-              <span className="text-sm font-medium text-slate-700">Conversations</span>
+            <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200 dark:border-zinc-800">
+              <span className="text-sm font-medium text-slate-700 dark:text-slate-200">Conversations</span>
               <button
                 type="button"
                 onClick={handleNewChat}
-                className="p-1.5 rounded-lg text-slate-500 hover:text-cyan-700 hover:bg-white border border-transparent hover:border-slate-200 transition-colors"
+                className="p-1.5 rounded-lg text-slate-500 dark:text-slate-400 hover:text-cyan-700 dark:hover:text-cyan-400 hover:bg-white dark:hover:bg-white/5 border border-transparent hover:border-slate-200 dark:hover:border-zinc-700 transition-colors"
                 title="New Chat"
               >
                 <Plus className="w-4 h-4" />
@@ -218,15 +218,15 @@ const Chat: React.FC = () => {
                     key={c.id}
                     className={`group flex items-center gap-2 px-3 py-2.5 rounded-xl cursor-pointer transition-colors ${
                       c.id === conversationId
-                        ? 'bg-white border border-cyan-200 text-slate-900 shadow-sm'
-                        : 'text-slate-600 hover:bg-white/80 hover:text-slate-900 border border-transparent'
+                        ? 'bg-white dark:bg-black border border-cyan-200 dark:border-cyan-700 text-slate-900 dark:text-slate-100 shadow-sm'
+                        : 'text-slate-600 dark:text-slate-400 hover:bg-white/80 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-slate-100 border border-transparent'
                     }`}
                     onClick={() => handleLoadConversation(c.id)}
                     onKeyDown={(e) => e.key === 'Enter' && handleLoadConversation(c.id)}
                     role="button"
                     tabIndex={0}
                   >
-                    <MessageSquare className="w-3.5 h-3.5 flex-shrink-0 text-cyan-600" />
+                    <MessageSquare className="w-3.5 h-3.5 flex-shrink-0 text-cyan-600 dark:text-cyan-400" />
                     <div className="flex-1 min-w-0">
                       <p className="text-sm truncate">{c.title || 'Untitled'}</p>
                       <p className="text-[10px] text-slate-400">{formatTimeAgo(c.updated_at)}</p>
@@ -246,16 +246,16 @@ const Chat: React.FC = () => {
         )}
       </AnimatePresence>
 
-      <div className="flex-1 flex flex-col min-w-0 bg-gradient-to-b from-white to-slate-50/80">
-        <div className="flex items-center gap-2 px-4 py-2 border-b border-slate-200 bg-white/90">
+      <div className="flex-1 flex flex-col min-w-0 bg-gradient-to-b from-white to-slate-50/80 dark:from-black dark:to-black dark:bg-black">
+        <div className="flex items-center gap-2 px-4 py-2 border-b border-slate-200 dark:border-zinc-800 bg-white/90 dark:bg-black">
           <button
             type="button"
             onClick={() => setSidebarOpen((prev) => !prev)}
-            className="p-1.5 rounded-lg text-slate-500 hover:text-slate-800 hover:bg-slate-100 transition-colors"
+            className="p-1.5 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-white/5 transition-colors"
           >
             {sidebarOpen ? <PanelLeftClose className="w-4 h-4" /> : <PanelLeftOpen className="w-4 h-4" />}
           </button>
-          <h1 className="text-sm font-semibold text-slate-800">AI Assistant</h1>
+          <h1 className="text-sm font-semibold text-slate-800 dark:text-slate-100">AI Assistant</h1>
           {messages.length > 0 && (
             <button
               type="button"
@@ -303,7 +303,7 @@ const Chat: React.FC = () => {
           )}
         </div>
 
-        <div className="border-t border-slate-200 px-4 py-3 bg-white/95">
+        <div className="border-t border-slate-200 dark:border-zinc-800 px-4 py-3 bg-white/95 dark:bg-black">
           <div className="max-w-3xl mx-auto space-y-2">
             <AnimatePresence>
               {showUpload && (
@@ -344,7 +344,7 @@ const Chat: React.FC = () => {
                   onKeyDown={handleKeyDown}
                   placeholder="Ask about drug repurposing, market analysis, clinical trials..."
                   rows={1}
-                  className="w-full resize-none bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 pr-12 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-500/15 transition-all"
+                  className="w-full resize-none bg-slate-50 dark:bg-black border border-slate-200 dark:border-zinc-700 rounded-xl px-4 py-3 pr-12 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-500/15 transition-all"
                 />
                 <button
                   type="button"
@@ -362,7 +362,7 @@ const Chat: React.FC = () => {
             </div>
 
             <p className="text-[10px] text-slate-400 text-center">
-              PharmAI may produce inaccurate information. Verify critical findings independently.
+              repurpose.ai may produce inaccurate information. Verify critical findings independently.
             </p>
           </div>
         </div>

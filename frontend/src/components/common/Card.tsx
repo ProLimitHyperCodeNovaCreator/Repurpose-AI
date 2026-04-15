@@ -13,7 +13,7 @@ const Card: React.FC<CardProps> = ({ children, className, hover = false, onClick
   return (
     <div
       className={cn(
-        'bg-white/90 border border-slate-200/90 rounded-xl shadow-sm shadow-slate-200/40 backdrop-blur-sm',
+        'bg-white/90 dark:bg-black border border-slate-200/90 dark:border-zinc-800 rounded-xl shadow-sm shadow-slate-200/40 dark:shadow-none backdrop-blur-sm',
         padding,
         hover && 'hover:border-cyan-300/80 hover:shadow-md hover:shadow-cyan-500/10 cursor-pointer transition-all duration-200',
         className

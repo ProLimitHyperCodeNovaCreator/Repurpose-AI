@@ -56,7 +56,7 @@ const Login: React.FC = () => {
   const handleGuest = () => {
     setUser({
       id: 'guest',
-      email: 'guest@pharmai.local',
+      email: 'guest@repurpose.ai',
       username: 'Guest',
       full_name: 'Guest User',
       name: 'Guest User',
@@ -66,7 +66,7 @@ const Login: React.FC = () => {
   };
 
   const inputClass =
-    'w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-cyan-500/60 focus:ring-2 focus:ring-cyan-500/15 transition-colors';
+    'w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-black border border-slate-200 dark:border-zinc-700 rounded-xl text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-cyan-500/60 focus:ring-2 focus:ring-cyan-500/15 transition-colors';
 
   return (
     <motion.div
@@ -75,18 +75,18 @@ const Login: React.FC = () => {
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.25 }}
     >
-      <h2 className="text-xl font-bold text-slate-900 mb-1">
+      <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-1">
         {isRegister ? 'Create Account' : 'Welcome Back'}
       </h2>
-      <p className="text-sm text-slate-600 mb-6">
-        {isRegister ? 'Sign up to get started with PharmAI' : 'Sign in to continue to PharmAI'}
+      <p className="text-sm text-slate-600 dark:text-slate-400 mb-6">
+        {isRegister ? 'Sign up to get started with repurpose.ai' : 'Sign in to continue to repurpose.ai'}
       </p>
 
       {error && (
         <motion.div
           initial={{ opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-4 p-3 rounded-xl bg-red-50 border border-red-200 text-sm text-red-700"
+          className="mb-4 p-3 rounded-xl bg-red-50 dark:bg-black border border-red-200 dark:border-red-900/50 text-sm text-red-700 dark:text-red-400"
         >
           {error}
         </motion.div>
@@ -132,12 +132,12 @@ const Login: React.FC = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
-              className="w-full pl-10 pr-10 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-cyan-500/60 focus:ring-2 focus:ring-cyan-500/15 transition-colors"
+              className={`${inputClass} pr-10`}
             />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
             >
               {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
             </button>
@@ -164,15 +164,15 @@ const Login: React.FC = () => {
       </form>
 
       <div className="flex items-center gap-3 my-6">
-        <div className="flex-1 h-px bg-slate-200" />
-        <span className="text-xs text-slate-400">or</span>
-        <div className="flex-1 h-px bg-slate-200" />
+        <div className="flex-1 h-px bg-slate-200 dark:bg-zinc-800" />
+        <span className="text-xs text-slate-400 dark:text-slate-500">or</span>
+        <div className="flex-1 h-px bg-slate-200 dark:bg-zinc-800" />
       </div>
 
       <button
         type="button"
         onClick={handleGuest}
-        className="w-full py-2.5 border border-slate-200 hover:border-cyan-300 text-slate-700 hover:text-slate-900 font-medium text-sm rounded-xl transition-all duration-200 hover:bg-slate-50"
+        className="w-full py-2.5 border border-slate-200 dark:border-zinc-700 hover:border-cyan-300 dark:hover:border-cyan-700 text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white font-medium text-sm rounded-xl transition-all duration-200 hover:bg-slate-50 dark:hover:bg-black"
       >
         Continue as Guest
       </button>

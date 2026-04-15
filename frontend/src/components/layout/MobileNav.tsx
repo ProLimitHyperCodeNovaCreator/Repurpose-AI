@@ -17,7 +17,7 @@ const MobileNav: React.FC = () => {
   const location = useLocation();
 
   return (
-    <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-slate-200 z-50 shadow-[0_-4px_24px_-4px_rgba(15,23,42,0.08)]">
+    <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white/95 dark:bg-black backdrop-blur-md border-t border-slate-200 dark:border-zinc-800 z-50 shadow-[0_-4px_24px_-4px_rgba(15,23,42,0.08)] dark:shadow-none">
       <div className="flex items-center justify-around py-2">
         {navItems.map((item) => {
           const active = location.pathname === item.path;
@@ -25,8 +25,8 @@ const MobileNav: React.FC = () => {
           return (
             <NavLink key={item.path} to={item.path} className="relative flex flex-col items-center py-2 px-4 min-w-[60px]">
               {active && <motion.div layoutId="mobile-nav-indicator" className="absolute -top-2 left-1/2 -translate-x-1/2 w-8 h-1 rounded-full bg-gradient-to-r from-cyan-500 to-teal-600" />}
-              <Icon className={cn('w-5 h-5 mb-1 transition-colors', active ? 'text-cyan-600' : 'text-slate-400')} />
-              <span className={cn('text-xs transition-colors', active ? 'text-cyan-700 font-semibold' : 'text-slate-500')}>{item.label}</span>
+              <Icon className={cn('w-5 h-5 mb-1 transition-colors', active ? 'text-cyan-600 dark:text-cyan-400' : 'text-slate-400 dark:text-slate-500')} />
+              <span className={cn('text-xs transition-colors', active ? 'text-cyan-700 dark:text-cyan-300 font-semibold' : 'text-slate-500 dark:text-slate-400')}>{item.label}</span>
             </NavLink>
           );
         })}

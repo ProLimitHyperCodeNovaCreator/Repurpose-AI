@@ -23,9 +23,12 @@ import Login from './pages/Login';
 import RepurposeDashboard from './pages/RepurposeDashboard';
 
 import './App.css';
+import ThemeSync from './components/ThemeSync';
 
 function App() {
   return (
+    <>
+      <ThemeSync />
     <Routes>
       {/* Landing page */}
       <Route path="/" element={<Home />} />
@@ -60,6 +63,7 @@ function App() {
       {/* Fallback */}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
+    </>
   );
 }
 

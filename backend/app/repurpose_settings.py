@@ -28,8 +28,8 @@ class Settings(BaseSettings):
     # LLM Configuration
     OLLAMA_BASE_URL: str = "http://localhost:11434"
     OLLAMA_MODEL: str = "llama3.2"
-    # gemini-pro removed from Google API; .env may still set it — validated to a live model id
-    GEMINI_MODEL: str = "gemini-2.0-flash"
+    # Default targets current AI Studio generateContent (2.0/1.5 often 404 for new keys)
+    GEMINI_MODEL: str = "gemini-2.5-flash"
     GROQ_API_KEY: Optional[str] = None
     GROQ_MODEL: str = "llama-3.3-70b-versatile"
 

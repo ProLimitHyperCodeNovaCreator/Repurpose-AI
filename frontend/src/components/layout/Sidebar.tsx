@@ -3,8 +3,9 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   LayoutDashboard, Search, Clock, Bookmark, TrendingUp, GitCompareArrows,
-  Plug, Settings, ChevronLeft, ChevronRight, Dna, MessageSquare, GitBranch, FlaskConical,
+  Plug, Settings, ChevronLeft, ChevronRight, MessageSquare, GitBranch, FlaskConical,
 } from 'lucide-react';
+import RepurposeMark from '../brand/RepurposeMark';
 import { cn } from '../../utils/helpers';
 import { NAV_ITEMS, ROUTES } from '../../utils/constants';
 import Badge from '../common/Badge';
@@ -42,8 +43,8 @@ const Sidebar: React.FC = () => {
         className={cn(
           'flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 relative group',
           active
-            ? 'bg-cyan-50 text-slate-900 border border-cyan-200/80 shadow-sm shadow-cyan-500/10'
-            : 'text-slate-600 hover:text-slate-900 hover:bg-white/80 border border-transparent'
+            ? 'bg-cyan-50 dark:bg-black text-slate-900 dark:text-slate-100 border border-cyan-200/80 dark:border-cyan-700 shadow-sm shadow-cyan-500/10'
+            : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-white/80 dark:hover:bg-white/5 border border-transparent'
         )}
       >
         {active && (
@@ -66,17 +67,17 @@ const Sidebar: React.FC = () => {
   };
 
   return (
-    <motion.aside initial={false} animate={{ width: sidebarCollapsed ? 72 : 280 }} transition={{ duration: 0.2, ease: 'easeInOut' }} className="h-screen bg-white/90 backdrop-blur-md border-r border-slate-200/90 flex flex-col flex-shrink-0 shadow-sm shadow-slate-200/30">
-      <div className="p-4 border-b border-slate-100">
+    <motion.aside initial={false} animate={{ width: sidebarCollapsed ? 72 : 280 }} transition={{ duration: 0.2, ease: 'easeInOut' }} className="h-screen bg-white/90 dark:bg-black backdrop-blur-md border-r border-slate-200/90 dark:border-zinc-800 flex flex-col flex-shrink-0 shadow-sm shadow-slate-200/30 dark:shadow-none">
+      <div className="p-4 border-b border-slate-100 dark:border-zinc-800">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-gradient-to-br from-cyan-500 to-teal-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-md shadow-cyan-500/25">
-            <Dna className="w-6 h-6 text-white" />
-          </div>
+          <RepurposeMark className="w-10 h-10 flex-shrink-0 shadow-md shadow-cyan-500/25 rounded-xl" alt="" />
           <AnimatePresence>
             {!sidebarCollapsed && (
               <motion.div initial={{ opacity: 0, width: 0 }} animate={{ opacity: 1, width: 'auto' }} exit={{ opacity: 0, width: 0 }} transition={{ duration: 0.2 }} className="overflow-hidden">
-                <h1 className="text-lg font-bold text-slate-900 whitespace-nowrap">Pharm<span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-teal-600">AI</span></h1>
-                <p className="text-xs text-slate-500 whitespace-nowrap">Drug Intelligence Platform</p>
+                <h1 className="text-lg font-bold text-slate-900 dark:text-slate-100 whitespace-nowrap">
+                  repurpose<span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-teal-400">.ai</span>
+                </h1>
+                <p className="text-xs text-slate-500 dark:text-slate-400 whitespace-nowrap">Drug repurposing intelligence</p>
               </motion.div>
             )}
           </AnimatePresence>
@@ -89,7 +90,7 @@ const Sidebar: React.FC = () => {
           <div key={section.title}>
             <AnimatePresence>
               {!sidebarCollapsed && (
-                <motion.h2 initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="px-4 mb-2 text-xs font-semibold text-slate-400 tracking-wider">
+                <motion.h2 initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="px-4 mb-2 text-xs font-semibold text-slate-400 dark:text-slate-500 tracking-wider">
                   {section.title}
                 </motion.h2>
               )}
@@ -101,8 +102,8 @@ const Sidebar: React.FC = () => {
         ))}
       </nav>
 
-      <div className="p-3 border-t border-slate-100">
-        <button onClick={toggleSidebar} className="w-full flex items-center gap-3 px-4 py-2 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all duration-200">
+      <div className="p-3 border-t border-slate-100 dark:border-zinc-800">
+        <button onClick={toggleSidebar} className="w-full flex items-center gap-3 px-4 py-2 rounded-xl text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-white/5 transition-all duration-200">
           {sidebarCollapsed ? <ChevronRight className="w-5 h-5 mx-auto" /> : <><ChevronLeft className="w-5 h-5" /><span className="font-medium">Collapse</span></>}
         </button>
       </div>

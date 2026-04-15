@@ -63,7 +63,7 @@ const SearchPage: React.FC = () => {
   const recentSearches = searchHistory.slice(0, 6);
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] flex flex-col">
+    <div className="min-h-[calc(100vh-4rem)] flex flex-col dark:bg-black">
       <div className="flex-1 flex flex-col items-center justify-center px-4 py-16 max-w-4xl mx-auto w-full">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -75,10 +75,10 @@ const SearchPage: React.FC = () => {
             <Zap className="w-3.5 h-3.5" />
             {AGENTS.length} specialized AI agents
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-slate-50 mb-4">
             Drug Repurposing Search
           </h1>
-          <p className="text-slate-600 text-lg max-w-2xl mx-auto">
+          <p className="text-slate-600 dark:text-slate-400 text-lg max-w-2xl mx-auto">
             Enter a drug name to run one unified report: evidence, scoring, market intelligence,
             process design, techno-economics, demographics & plant siting, plus exports.
           </p>

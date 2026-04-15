@@ -21,8 +21,8 @@ const SuggestedQueries: React.FC<SuggestedQueriesProps> = ({ onSelect }) => {
   return (
     <div className="space-y-4">
       <div className="text-center">
-        <h2 className="text-2xl font-bold text-slate-900 mb-2">How can I help you today?</h2>
-        <p className="text-slate-600 text-sm">Ask me anything about drug repurposing, market analysis, or clinical trials</p>
+        <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-2">How can I help you today?</h2>
+        <p className="text-slate-600 dark:text-slate-400 text-sm">Ask me anything about drug repurposing, market analysis, or clinical trials</p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-2 max-w-2xl mx-auto">
         {suggestions.map((s, i) => {
@@ -34,10 +34,10 @@ const SuggestedQueries: React.FC<SuggestedQueriesProps> = ({ onSelect }) => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.05 }}
               onClick={() => onSelect(s.text)}
-              className="flex items-center gap-3 p-3 text-left bg-white/90 border border-slate-200/90 rounded-xl hover:border-cyan-300 hover:shadow-md hover:shadow-cyan-500/10 transition-all group shadow-sm"
+              className="flex items-center gap-3 p-3 text-left bg-white/90 dark:bg-black border border-slate-200/90 dark:border-zinc-700 rounded-xl hover:border-cyan-300 dark:hover:border-cyan-700 hover:shadow-md hover:shadow-cyan-500/10 transition-all group shadow-sm"
             >
               <Icon className={`w-4 h-4 ${s.color} flex-shrink-0`} />
-              <span className="text-sm text-slate-700 group-hover:text-slate-900 transition-colors">{s.text}</span>
+              <span className="text-sm text-slate-700 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-slate-100 transition-colors">{s.text}</span>
             </motion.button>
           );
         })}

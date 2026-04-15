@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -14,9 +14,6 @@ import {
   Clock,
   AlertTriangle,
   Database,
-  Cog,
-  Calculator,
-  MapPin,
   Atom,
 } from 'lucide-react';
 
@@ -45,9 +42,6 @@ import RadarChart from '../components/visualizations/RadarChart';
 
 import CompositeScoreRing from '../components/scoring/CompositeScoreRing';
 import ScoreBreakdown from '../components/scoring/ScoreBreakdown';
-import { ProfessionalPID } from '../components/ProfessionalPID';
-import { GradingSection, TeaSection } from '../components/ReportComponents';
-import { PlantSiteMap } from '../components/PlantSiteMap';
 import { MarketAndEximCharts } from '../components/MarketAndEximCharts';
 
 import Card from '../components/common/Card';
@@ -58,11 +52,7 @@ import EmptyState from '../components/common/EmptyState';
 
 const TAB_DEFS = [
   { id: 'opportunities', label: 'Opportunities', icon: <TrendingUp className="w-4 h-4" /> },
-  { id: 'report', label: 'Report', icon: <FileText className="w-4 h-4" /> },
   { id: 'full-report', label: 'Full report', icon: <FileStack className="w-4 h-4" /> },
-  { id: 'process-design', label: 'Process', icon: <Cog className="w-4 h-4" /> },
-  { id: 'tea-analysis', label: 'TEA', icon: <Calculator className="w-4 h-4" /> },
-  { id: 'demographics-sites', label: 'Sites', icon: <MapPin className="w-4 h-4" /> },
   { id: 'molecule-trials', label: 'Structure & trials', icon: <Atom className="w-4 h-4" /> },
   { id: 'market', label: 'Market', icon: <BarChart3 className="w-4 h-4" /> },
   { id: 'evidence', label: 'Evidence', icon: <FileText className="w-4 h-4" /> },
@@ -85,6 +75,10 @@ const Results: React.FC = () => {
   const drugName = paramDrug || storeDrug || 'Unknown Drug';
 
   const [activeTab, setActiveTab] = useState('opportunities');
+
+  useEffect(() => {
+    if (!TAB_DEFS.some((t) => t.id === activeTab)) setActiveTab('opportunities');
+  }, [activeTab]);
   const [selectedOpp, setSelectedOpp] = useState<any>(null);
   const [evidencePanelOpen, setEvidencePanelOpen] = useState(false);
   const [exportLoading, setExportLoading] = useState<string | null>(null);
@@ -283,7 +277,7 @@ const Results: React.FC = () => {
   });
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 text-slate-800 dark:text-slate-200">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -12 }}
@@ -293,7 +287,7 @@ const Results: React.FC = () => {
         <div className="flex items-center gap-4">
           <CompositeScoreRing score={overallScore} size={72} strokeWidth={6} />
           <div>
-            <h1 className="text-2xl font-bold text-slate-900 capitalize">{drugName}</h1>
+            <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-50 capitalize">{drugName}</h1>
             <div className="flex items-center gap-2 mt-1">
               <Badge variant="yellow" size="lg">
                 {opportunities.length} opportunit{opportunities.length === 1 ? 'y' : 'ies'}
@@ -348,12 +342,12 @@ const Results: React.FC = () => {
       <Card>
         <div className="flex flex-col sm:flex-row sm:items-start gap-6">
           <div className="flex-1">
-            <h3 className="text-sm font-semibold text-slate-700 mb-3">Score Breakdown</h3>
+            <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">Score Breakdown</h3>
             <ScoreBreakdown scores={overallDimensionScores} />
           </div>
-          <div className="w-px bg-slate-100 hidden sm:block self-stretch" />
+          <div className="w-px bg-slate-100 dark:bg-zinc-800 hidden sm:block self-stretch" />
           <div className="sm:w-72 sm:min-w-[280px]">
-            <h3 className="text-sm font-semibold text-slate-700 mb-3">Radar Overview</h3>
+            <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">Radar Overview</h3>
             <RadarChart
               data={Object.entries(overallDimensionScores).map(([dimension, score]) => ({
                 dimension,
@@ -430,49 +424,6 @@ const Results: React.FC = () => {
                   </Card>
                 )}
               </div>
-            </div>
-          )}
-
-          {activeTab === 'report' && (
-            <div className="space-y-8">
-              {(searchResults?.pid_data || searchResults?.tea_data || searchResults?.grading) ? (
-                <>
-                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                    <div className="lg:col-span-8">
-                      <div className="w-full" style={{ minHeight: '400px' }}>
-                        <ProfessionalPID
-                          pidData={searchResults?.pid_data}
-                          teaData={searchResults?.tea_data}
-                          drugName={drugName}
-                        />
-                      </div>
-                    </div>
-                    <div className="lg:col-span-4">
-                      <GradingSection data={searchResults?.grading} />
-                    </div>
-                  </div>
-                  <TeaSection visualData={searchResults?.visual_data} teaData={searchResults?.tea_data} />
-                  <MarketAndEximCharts
-                    marketData={searchResults?.visual_data?.market_data ?? searchResults?.market_data}
-                    eximData={searchResults?.visual_data?.exim_data ?? searchResults?.exim_data}
-                    drugName={drugName}
-                  />
-                  <PlantSiteMap
-                    sites={searchResults?.visual_data?.demographic_data?.plant_site_recommendations ?? []}
-                    drugName={drugName}
-                  />
-                </>
-              ) : (
-                <Card className="border-amber-100 bg-amber-50/40">
-                  <p className="text-sm text-slate-600">
-                    Run a fresh search (with cache cleared) to generate process design, techno-economics, and site analysis.
-                    Older cached results may not include these dashboard components.
-                  </p>
-                  <Button variant="primary" className="mt-4" onClick={resetSearch}>
-                    Start New Search
-                  </Button>
-                </Card>
-              )}
             </div>
           )}
 
@@ -617,7 +568,7 @@ const Results: React.FC = () => {
                       Open full AI Insights
                     </Button>
                   </div>
-                  <div className="prose prose-sm prose-slate max-w-none max-h-72 overflow-y-auto pr-1 prose-p:text-slate-600">
+                  <div className="prose prose-sm prose-slate dark:prose-invert max-w-none max-h-72 overflow-y-auto pr-1 prose-p:text-slate-600 dark:prose-p:text-slate-300">
                     <ReactMarkdown>
                       {synthesisText.length > 3500 ? `${synthesisText.slice(0, 3500)}…` : synthesisText}
                     </ReactMarkdown>
@@ -635,66 +586,6 @@ const Results: React.FC = () => {
                 }
                 data={searchResults.regulatory_pathway || searchResults.regulatoryPathway}
               />
-            </div>
-          )}
-
-          {activeTab === 'process-design' && (
-            <div className="space-y-6">
-              <div className="w-full" style={{ minHeight: '500px' }}>
-                <ProfessionalPID
-                  pidData={searchResults?.pid_data}
-                  teaData={searchResults?.tea_data}
-                  drugName={drugName}
-                />
-              </div>
-              {effectiveExt.process_design?.trim() && (
-                <Card>
-                  <div className="flex items-center gap-2 mb-3">
-                    <Cog className="w-4 h-4 text-cyan-600" />
-                    <h3 className="text-sm font-semibold text-slate-900">Process design summary</h3>
-                  </div>
-                  <div className="prose prose-sm prose-slate max-w-none prose-p:text-slate-700">
-                    <ReactMarkdown>{effectiveExt.process_design}</ReactMarkdown>
-                  </div>
-                </Card>
-              )}
-            </div>
-          )}
-
-          {activeTab === 'tea-analysis' && (
-            <div className="space-y-6">
-              <TeaSection visualData={searchResults?.visual_data ?? {}} teaData={searchResults?.tea_data} />
-              {effectiveExt.techno_economic?.trim() && (
-                <Card>
-                  <div className="flex items-center gap-2 mb-3">
-                    <Calculator className="w-4 h-4 text-cyan-600" />
-                    <h3 className="text-sm font-semibold text-slate-900">Techno-economics summary</h3>
-                  </div>
-                  <div className="prose prose-sm prose-slate max-w-none prose-p:text-slate-700">
-                    <ReactMarkdown>{effectiveExt.techno_economic}</ReactMarkdown>
-                  </div>
-                </Card>
-              )}
-            </div>
-          )}
-
-          {activeTab === 'demographics-sites' && (
-            <div className="space-y-6">
-              <PlantSiteMap
-                sites={searchResults?.visual_data?.demographic_data?.plant_site_recommendations ?? []}
-                drugName={drugName}
-              />
-              {effectiveExt.demographics_sites?.trim() && (
-                <Card>
-                  <div className="flex items-center gap-2 mb-3">
-                    <MapPin className="w-4 h-4 text-cyan-600" />
-                    <h3 className="text-sm font-semibold text-slate-900">Demographics summary</h3>
-                  </div>
-                  <div className="prose prose-sm prose-slate max-w-none prose-p:text-slate-700">
-                    <ReactMarkdown>{effectiveExt.demographics_sites}</ReactMarkdown>
-                  </div>
-                </Card>
-              )}
             </div>
           )}
 

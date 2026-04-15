@@ -25,15 +25,17 @@ const FileUploadZone: React.FC<FileUploadZoneProps> = ({ onUpload, files = [], o
       <div
         {...getRootProps()}
         className={`border-2 border-dashed rounded-xl p-4 text-center cursor-pointer transition-all ${
-          isDragActive ? 'border-cyan-500 bg-cyan-50' : 'border-slate-300 hover:border-cyan-400/60 bg-slate-50/50'
+          isDragActive
+            ? 'border-cyan-500 bg-cyan-50 dark:bg-black dark:border-cyan-500'
+            : 'border-slate-300 dark:border-zinc-700 hover:border-cyan-400/60 dark:hover:border-cyan-700 bg-slate-50/50 dark:bg-black'
         }`}
       >
         <input {...getInputProps()} />
-        <Upload className="w-6 h-6 text-slate-400 mx-auto mb-2" />
-        <p className="text-sm text-slate-600">
+        <Upload className="w-6 h-6 text-slate-400 dark:text-slate-500 mx-auto mb-2" />
+        <p className="text-sm text-slate-600 dark:text-slate-300">
           {isDragActive ? 'Drop files here...' : 'Drag & drop PDFs or click to upload'}
         </p>
-        <p className="text-xs text-slate-400 mt-1">Max 10MB per file</p>
+        <p className="text-xs text-slate-400 dark:text-slate-500 mt-1">Max 10MB per file</p>
       </div>
 
       {files.length > 0 && (

@@ -85,7 +85,7 @@ const Architecture: React.FC = () => {
           </span>
         </div>
         <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-3">
-          PharmAI Intelligence Platform
+          repurpose.ai intelligence platform
         </h1>
         <p className="text-slate-600 max-w-2xl mx-auto">
           Multi-agent pharmaceutical intelligence system powered by LangGraph orchestration,

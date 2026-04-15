@@ -90,7 +90,7 @@ export const PlantSiteMap: React.FC<PlantSiteMapProps> = ({
       return;
     }
 
-    const scriptId = 'google-maps-pharmai';
+    const scriptId = 'google-maps-repurpose';
     if (document.getElementById(scriptId)) {
       if (window.google?.maps) initMap(indiaSitesForMap);
       return;

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Settings as SettingsIcon, User, Database, Trash2, Shield, Bell } from 'lucide-react';
+import { Settings as SettingsIcon, User, Database, Trash2, Shield, Bell, Moon, Sun } from 'lucide-react';
 import Card from '../components/common/Card';
 import Button from '../components/common/Button';
 import Modal from '../components/common/Modal';
@@ -11,6 +11,8 @@ const Settings: React.FC = () => {
   const user = useAppStore((s) => s.user);
   const sidebarCollapsed = useAppStore((s) => s.sidebarCollapsed);
   const toggleSidebar = useAppStore((s) => s.toggleSidebar);
+  const theme = useAppStore((s) => s.theme);
+  const toggleTheme = useAppStore((s) => s.toggleTheme);
   const storeClearAllData = useAppStore((s) => s.clearAllData);
 
   const [showClearModal, setShowClearModal] = useState(false);
@@ -33,7 +35,7 @@ const Settings: React.FC = () => {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="space-y-6"
+      className="space-y-6 text-slate-800 dark:text-slate-200"
     >
       {/* Page Header */}
       <div className="flex items-center gap-3">
@@ -41,8 +43,8 @@ const Settings: React.FC = () => {
           <SettingsIcon className="w-5 h-5 text-cyan-700" />
         </div>
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">Settings</h1>
-          <p className="text-sm text-slate-600">Manage your preferences and data</p>
+          <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Settings</h1>
+          <p className="text-sm text-slate-600 dark:text-slate-400">Manage your preferences and data</p>
         </div>
       </div>
 
@@ -53,11 +55,11 @@ const Settings: React.FC = () => {
             <User className="w-7 h-7 text-white" />
           </div>
           <div className="flex-1 min-w-0">
-            <h3 className="text-lg font-semibold text-slate-900 truncate">
-              {user?.name || 'PharmAI User'}
+            <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 truncate">
+              {user?.name || 'repurpose.ai user'}
             </h3>
-            <p className="text-sm text-slate-600 truncate">
-              {user?.email || 'user@pharmai.et.com'}
+            <p className="text-sm text-slate-600 dark:text-slate-400 truncate">
+              {user?.email || 'user@repurpose.ai'}
             </p>
           </div>
           <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-teal-50 border border-teal-200">
@@ -69,14 +71,36 @@ const Settings: React.FC = () => {
 
       {/* Quick Settings */}
       <Card>
-        <h3 className="text-sm font-semibold text-slate-700 uppercase tracking-wider mb-4">
+        <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-4">
           Quick Settings
         </h3>
         <div className="space-y-3">
           <div className="flex items-center justify-between py-2">
             <div className="flex items-center gap-3">
-              <Bell className="w-4 h-4 text-slate-600" />
-              <span className="text-sm text-slate-800">Compact Sidebar</span>
+              <Moon className="w-4 h-4 text-slate-600 dark:text-slate-400" />
+              <span className="text-sm text-slate-800 dark:text-slate-200">Dark mode</span>
+            </div>
+            <button
+              type="button"
+              onClick={() => toggleTheme()}
+              className={`relative w-11 h-6 rounded-full transition-colors duration-200 ${
+                theme === 'dark' ? 'bg-gradient-to-r from-cyan-600 to-teal-600' : 'bg-slate-300 dark:bg-black dark:border dark:border-zinc-700'
+              }`}
+              aria-label="Toggle dark mode"
+            >
+              <span
+                className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform duration-200 flex items-center justify-center ${
+                  theme === 'dark' ? 'translate-x-5' : 'translate-x-0'
+                }`}
+              >
+                {theme === 'dark' ? <Moon className="w-3 h-3 text-slate-700" /> : <Sun className="w-3 h-3 text-amber-500" />}
+              </span>
+            </button>
+          </div>
+          <div className="flex items-center justify-between py-2">
+            <div className="flex items-center gap-3">
+              <Bell className="w-4 h-4 text-slate-600 dark:text-slate-400" />
+              <span className="text-sm text-slate-800 dark:text-slate-200">Compact Sidebar</span>
             </div>
             <button
               onClick={toggleSidebar}
@@ -98,11 +122,11 @@ const Settings: React.FC = () => {
       <Card>
         <div className="flex items-center gap-3 mb-4">
           <Database className="w-4 h-4 text-slate-600" />
-          <h3 className="text-sm font-semibold text-slate-700 uppercase tracking-wider">
+          <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
             Data & Storage
           </h3>
         </div>
-        <p className="text-sm text-slate-600 mb-4">
+        <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
           Clear all cached searches, saved opportunities, chat history, and notifications.
           This action cannot be undone.
         </p>
@@ -118,8 +142,8 @@ const Settings: React.FC = () => {
 
       {/* Version Footer */}
       <div className="text-center pt-4 pb-8">
-        <p className="text-xs text-slate-500">
-          PharmAI Platform &middot; v3.1.0 &middot; ET Pharmaceutical Intelligence
+        <p className="text-xs text-slate-500 dark:text-slate-400">
+          repurpose.ai &middot; v3.1.0 &middot; Drug repurposing intelligence
         </p>
       </div>
 

@@ -139,8 +139,15 @@ class GeminiService:
 
             if _google_genai_new is not None and not use_legacy_first:
                 print("Initializing Gemini (google.genai)...")
-                # Prefer models that work with Gemini API (ai.google.dev); 2.0-flash can 404 on some endpoints
-                preferred_models = ["gemini-2.0-flash", "gemini-1.5-flash", "gemini-1.5-pro"]
+                # 2.0 / 1.5 IDs often 404 for new AI Studio keys; prefer 2.5 family first
+                preferred_models = [
+                    "gemini-2.5-flash",
+                    "gemini-2.5-flash-lite",
+                    "gemini-2.5-pro",
+                    "gemini-2.0-flash",
+                    "gemini-1.5-flash",
+                    "gemini-1.5-pro",
+                ]
                 try:
                     self._client = _google_genai_new.Client(api_key=self.api_key)
                     self.available_models = preferred_models
@@ -166,7 +173,14 @@ class GeminiService:
             else:
                 # Legacy google.generativeai (e.g. when google-genai pip install timed out)
                 print("Initializing Gemini (google.generativeai legacy)...")
-                preferred_models = ["gemini-2.0-flash", "gemini-1.5-flash", "gemini-1.5-pro"]
+                preferred_models = [
+                    "gemini-2.5-flash",
+                    "gemini-2.5-flash-lite",
+                    "gemini-2.5-pro",
+                    "gemini-2.0-flash",
+                    "gemini-1.5-flash",
+                    "gemini-1.5-pro",
+                ]
                 try:
                     _google_genai_legacy.configure(api_key=self.api_key)
                     for model_name in preferred_models:

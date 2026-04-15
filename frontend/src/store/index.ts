@@ -175,7 +175,7 @@ export const useAppStore = create<AppState>()(
           }),
       }),
       {
-        name: 'pharmai-storage',
+        name: 'repurpose-storage',
         partialize: (state) => ({
           user: state.user,
           searchHistory: state.searchHistory,
@@ -185,7 +185,7 @@ export const useAppStore = create<AppState>()(
         }),
       }
     ),
-    { name: 'pharmai-store' }
+    { name: 'repurpose-store' }
   )
 );
 

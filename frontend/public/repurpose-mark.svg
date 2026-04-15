@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+  <rect width="48" height="48" rx="14" fill="url(#rpGrad)"/>
+  <circle cx="24" cy="24" r="4" fill="white"/>
+  <path d="M24 24V12" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M24 24L14 32" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M24 24L34 32" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+  <circle cx="24" cy="11" r="3.2" fill="white"/>
+  <circle cx="14" cy="33" r="3.2" fill="white"/>
+  <circle cx="34" cy="33" r="3.2" fill="white"/>
+  <defs>
+    <linearGradient id="rpGrad" x1="10" y1="6" x2="38" y2="42" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#06b6d4"/>
+      <stop offset="1" stop-color="#0d9488"/>
+    </linearGradient>
+  </defs>
+</svg>

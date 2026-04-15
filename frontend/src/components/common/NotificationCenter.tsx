@@ -16,7 +16,7 @@ const NotificationCenter: React.FC = () => {
 
   return (
     <div className="relative">
-      <button onClick={() => setOpen(!open)} className="relative p-1.5 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-lg transition-colors">
+      <button onClick={() => setOpen(!open)} className="relative p-1.5 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-white/5 rounded-lg transition-colors">
         <Bell className="w-4 h-4" />
         {notifications.length > 0 && (
           <span className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 bg-gradient-to-br from-cyan-500 to-teal-600 rounded-full text-[8px] text-white flex items-center justify-center font-bold shadow-sm">
@@ -33,26 +33,26 @@ const NotificationCenter: React.FC = () => {
               initial={{ opacity: 0, y: 10, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 10, scale: 0.95 }}
-              className="absolute right-0 mt-2 w-80 bg-white border border-slate-200 rounded-xl shadow-lg shadow-slate-200/60 z-50 overflow-hidden"
+              className="absolute right-0 mt-2 w-80 bg-white dark:bg-black border border-slate-200 dark:border-zinc-800 rounded-xl shadow-lg shadow-slate-200/60 dark:shadow-none z-50 overflow-hidden"
             >
-              <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100">
-                <h3 className="text-sm font-semibold text-slate-900">Notifications</h3>
+              <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100 dark:border-zinc-800">
+                <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">Notifications</h3>
                 {notifications.length > 0 && (
-                  <button onClick={clearNotifications} className="text-xs text-cyan-600 hover:text-teal-600 font-medium">Clear all</button>
+                  <button onClick={clearNotifications} className="text-xs text-cyan-600 dark:text-cyan-400 hover:text-teal-600 dark:hover:text-teal-400 font-medium">Clear all</button>
                 )}
               </div>
               <div className="max-h-80 overflow-y-auto">
                 {notifications.length === 0 ? (
-                  <p className="text-center text-sm text-slate-500 py-8">No notifications</p>
+                  <p className="text-center text-sm text-slate-500 dark:text-slate-400 py-8">No notifications</p>
                 ) : (
                   notifications.map((n: any) => (
-                    <div key={n.id} className="flex items-start gap-3 px-4 py-3 border-b border-slate-100 last:border-0 hover:bg-slate-50">
+                    <div key={n.id} className="flex items-start gap-3 px-4 py-3 border-b border-slate-100 dark:border-zinc-800 last:border-0 hover:bg-slate-50 dark:hover:bg-white/5">
                       {iconMap[n.type] || iconMap.info}
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm text-slate-900">{n.title}</p>
-                        {n.message && <p className="text-xs text-slate-500 mt-0.5">{n.message}</p>}
+                        <p className="text-sm text-slate-900 dark:text-slate-100">{n.title}</p>
+                        {n.message && <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{n.message}</p>}
                       </div>
-                      <button onClick={() => removeNotification(n.id)} className="text-slate-400 hover:text-slate-600">
+                      <button onClick={() => removeNotification(n.id)} className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300">
                         <X className="w-3.5 h-3.5" />
                       </button>
                     </div>

@@ -13,7 +13,8 @@ gunicorn>=20.1.0
 
 # --- Repurpose platform (search, chat, LangGraph, vector DB, exports) ---
 python-multipart>=0.0.6
-websockets>=16.0
+# supabase -> realtime pins websockets<16; uvicorn[standard] needs >=10.4
+websockets>=11,<16
 pydantic-settings>=2.3.0
 langgraph==1.0.10
 langchain==1.2.10
@@ -23,14 +24,22 @@ langchain-community==0.4.1
 langsmith==0.7.11
 # 3.10+ required: langchain-google-genai expects aiohttp.ClientConnectorDNSError (not in 3.9.x)
 aiohttp>=3.10.11,<4
-biopython==1.83
+# 1.83 does not build on CPython 3.14 (removed PyEval_CallObject); 1.87 ships cp314 wheels.
+biopython==1.83; python_version < "3.14"
+biopython==1.87; python_version >= "3.14"
 reportlab==4.0.9
 matplotlib>=3.7.0
 pillow>=10.0.0
 PyPDF2==3.0.1
-playwright==1.40.0
+# 1.40 pins greenlet==3.0.1 (no cp314 wheels). Newer Playwright allows greenlet 3.1+.
+playwright==1.58.0
+# Prefer a greenlet that publishes cp314 wheels; still satisfies Playwright's greenlet<4,>=3.1.1.
+greenlet>=3.2.0,<4; python_version >= "3.14"
 jinja2==3.1.2
-numpy==1.26.3
+# <3.13: keep 1.26 pin. 3.13: langchain-community needs numpy>=2.1. 3.14+: pin a release that ships cp314 wheels; looser ranges make pip try sdists of older 2.x and fail to compile on Apple Clang.
+numpy==1.26.3; python_version < "3.13"
+numpy>=2.1.0,<3; python_version >= "3.13" and python_version < "3.14"
+numpy==2.4.4; python_version >= "3.14"
 openpyxl>=3.1.0
 chromadb==0.4.22
 sentence-transformers==2.3.1
