@@ -1,0 +1,273 @@
+{
+  "conversation_id": "70e9cbeb-0938-4b88-843d-3d7b5b53385b",
+  "created_at": "2026-04-15T23:20:29.114306",
+  "updated_at": "2026-04-15T23:21:02.141062",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Repurposing idea for paracetamol",
+      "timestamp": "2026-04-15T23:20:29.114306",
+      "metadata": {}
+    },
+    {
+      "role": "assistant",
+      "content": "### Multi-Agent Pipeline\nNo drug name detected. Please specify a drug to analyze.",
+      "timestamp": "2026-04-15T23:20:29.122157",
+      "metadata": {
+        "intent": "drug_analysis"
+      },
+      "suggestions": [
+        "What is the patent landscape for the drug?",
+        "Show EXIM trade data for the drug",
+        "Generate a detailed PDF report for the drug"
+      ],
+      "agent_activities": [
+        {
+          "agent_name": "Multi-Agent Pipeline",
+          "status": "done",
+          "message": "Complete"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "content": "paracetamol",
+      "timestamp": "2026-04-15T23:20:43.198256",
+      "metadata": {}
+    },
+    {
+      "role": "assistant",
+      "content": "### Web Intelligence Agent\n**[PUBLICATION]** [Drug Repurposing: Progress, Challenges, and Recommendations](https://doi.org/10.1038/nrd.2025.1234)\nComprehensive review of drug repurposing landscape. AI-driven approaches showing 3x higher hit rate than traditional screening. Key success stories: thalidomide (myeloma), sildenafil (PAH), minoxidil (alopecia).\n\n**[GUIDELINE]** [WHO Model List of Essential Medicines - 23rd Edition (2025)](https://www.who.int/publications/i/item/WHO-MHP-HPS-EML-2025.01)\nUpdated essential medicines list includes 502 medicines. 15 new additions including novel antibiotics and oncology agents. Metformin, aspirin, and ibuprofen remain cornerstone therapies.\n",
+      "timestamp": "2026-04-15T23:20:43.214987",
+      "metadata": {
+        "intent": "general_question"
+      },
+      "tables": [
+        {
+          "title": "Web Intelligence Results",
+          "columns": [
+            {
+              "key": "title",
+              "label": "Source"
+            },
+            {
+              "key": "source_type",
+              "label": "Type"
+            },
+            {
+              "key": "date",
+              "label": "Date"
+            },
+            {
+              "key": "credibility",
+              "label": "Credibility"
+            }
+          ],
+          "rows": [
+            {
+              "title": "Drug Repurposing: Progress, Challenges, and Recommendations",
+              "source_type": "PUBLICATION",
+              "date": "2025-05-15",
+              "credibility": "high"
+            },
+            {
+              "title": "WHO Model List of Essential Medicines - 23rd Edition (2025)",
+              "source_type": "GUIDELINE",
+              "date": "2025-06-20",
+              "credibility": "high"
+            }
+          ]
+        }
+      ],
+      "suggestions": [
+        "Analyze a specific drug for repurposing opportunities",
+        "Show market data for a therapeutic area",
+        "Check the patent landscape for a molecule"
+      ],
+      "agent_activities": [
+        {
+          "agent_name": "Web Intelligence Agent",
+          "status": "done",
+          "message": "Complete"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "content": "Show market data for a therapeutic area",
+      "timestamp": "2026-04-15T23:20:53.240474",
+      "metadata": {}
+    },
+    {
+      "role": "assistant",
+      "content": "### IQVIA Insights Agent\n**Cancer**: Market size $250.0B, CAGR 7.5%, Unmet Need: 75/100\n**Type 2 Diabetes**: Market size $95.0B, CAGR 6.8%, Unmet Need: 60/100\n**Cardiovascular Disease**: Market size $180.0B, CAGR 4.5%, Unmet Need: 55/100",
+      "timestamp": "2026-04-15T23:20:53.263262",
+      "metadata": {
+        "intent": "market_query"
+      },
+      "tables": [
+        {
+          "title": "Market Overview",
+          "columns": [
+            {
+              "key": "indication",
+              "label": "Indication"
+            },
+            {
+              "key": "market_size",
+              "label": "Market Size"
+            },
+            {
+              "key": "cagr",
+              "label": "CAGR"
+            },
+            {
+              "key": "patients",
+              "label": "Patients"
+            },
+            {
+              "key": "unmet_need",
+              "label": "Unmet Need"
+            },
+            {
+              "key": "pricing",
+              "label": "Pricing"
+            }
+          ],
+          "rows": [
+            {
+              "indication": "Cancer",
+              "market_size": "$250.0B",
+              "cagr": "7.5%",
+              "patients": "19.3M",
+              "unmet_need": "75/100",
+              "pricing": "1.0x"
+            },
+            {
+              "indication": "Type 2 Diabetes",
+              "market_size": "$95.0B",
+              "cagr": "6.8%",
+              "patients": "537.0M",
+              "unmet_need": "60/100",
+              "pricing": "1.0x"
+            },
+            {
+              "indication": "Cardiovascular Disease",
+              "market_size": "$180.0B",
+              "cagr": "4.5%",
+              "patients": "523.0M",
+              "unmet_need": "55/100",
+              "pricing": "1.0x"
+            }
+          ]
+        }
+      ],
+      "charts": [
+        {
+          "chart_type": "bar",
+          "title": "Market Size Comparison ($B)",
+          "labels": [
+            "Cancer",
+            "Type 2 Diabetes",
+            "Cardiovascular Disea"
+          ],
+          "datasets": [
+            {
+              "label": "Market Size ($B)",
+              "data": [
+                250.0,
+                95.0,
+                180.0
+              ],
+              "color": "#00D4AA"
+            },
+            {
+              "label": "CAGR (%)",
+              "data": [
+                7.5,
+                6.8,
+                4.5
+              ],
+              "color": "#FFE600"
+            }
+          ]
+        }
+      ],
+      "suggestions": [
+        "Which segments have the highest unmet need?",
+        "What clinical trials are ongoing in this space?",
+        "Show the competitive filing heatmap"
+      ],
+      "agent_activities": [
+        {
+          "agent_name": "IQVIA Insights Agent",
+          "status": "done",
+          "message": "Complete"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "content": "Show the competitive filing heatmap",
+      "timestamp": "2026-04-15T23:21:02.126313",
+      "metadata": {}
+    },
+    {
+      "role": "assistant",
+      "content": "### Web Intelligence Agent\n**[PUBLICATION]** [Drug Repurposing: Progress, Challenges, and Recommendations](https://doi.org/10.1038/nrd.2025.1234)\nComprehensive review of drug repurposing landscape. AI-driven approaches showing 3x higher hit rate than traditional screening. Key success stories: thalidomide (myeloma), sildenafil (PAH), minoxidil (alopecia).\n\n**[GUIDELINE]** [WHO Model List of Essential Medicines - 23rd Edition (2025)](https://www.who.int/publications/i/item/WHO-MHP-HPS-EML-2025.01)\nUpdated essential medicines list includes 502 medicines. 15 new additions including novel antibiotics and oncology agents. Metformin, aspirin, and ibuprofen remain cornerstone therapies.\n",
+      "timestamp": "2026-04-15T23:21:02.141062",
+      "metadata": {
+        "intent": "general_question"
+      },
+      "tables": [
+        {
+          "title": "Web Intelligence Results",
+          "columns": [
+            {
+              "key": "title",
+              "label": "Source"
+            },
+            {
+              "key": "source_type",
+              "label": "Type"
+            },
+            {
+              "key": "date",
+              "label": "Date"
+            },
+            {
+              "key": "credibility",
+              "label": "Credibility"
+            }
+          ],
+          "rows": [
+            {
+              "title": "Drug Repurposing: Progress, Challenges, and Recommendations",
+              "source_type": "PUBLICATION",
+              "date": "2025-05-15",
+              "credibility": "high"
+            },
+            {
+              "title": "WHO Model List of Essential Medicines - 23rd Edition (2025)",
+              "source_type": "GUIDELINE",
+              "date": "2025-06-20",
+              "credibility": "high"
+            }
+          ]
+        }
+      ],
+      "suggestions": [
+        "Analyze a specific drug for repurposing opportunities",
+        "Show market data for a therapeutic area",
+        "Check the patent landscape for a molecule"
+      ],
+      "agent_activities": [
+        {
+          "agent_name": "Web Intelligence Agent",
+          "status": "done",
+          "message": "Complete"
+        }
+      ]
+    }
+  ]
+}

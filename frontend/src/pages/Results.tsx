@@ -58,11 +58,7 @@ import EmptyState from '../components/common/EmptyState';
 
 const TAB_DEFS = [
   { id: 'opportunities', label: 'Opportunities', icon: <TrendingUp className="w-4 h-4" /> },
-  { id: 'report', label: 'Report', icon: <FileText className="w-4 h-4" /> },
   { id: 'full-report', label: 'Full report', icon: <FileStack className="w-4 h-4" /> },
-  { id: 'process-design', label: 'Process', icon: <Cog className="w-4 h-4" /> },
-  { id: 'tea-analysis', label: 'TEA', icon: <Calculator className="w-4 h-4" /> },
-  { id: 'demographics-sites', label: 'Sites', icon: <MapPin className="w-4 h-4" /> },
   { id: 'molecule-trials', label: 'Structure & trials', icon: <Atom className="w-4 h-4" /> },
   { id: 'market', label: 'Market', icon: <BarChart3 className="w-4 h-4" /> },
   { id: 'evidence', label: 'Evidence', icon: <FileText className="w-4 h-4" /> },
