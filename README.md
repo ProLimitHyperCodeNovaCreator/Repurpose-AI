@@ -1,378 +1,300 @@
-# ET PharmAI - Pharmaceutical Analysis Platform
+# RepurposeAI
 
-A comprehensive pharmaceutical analysis platform consisting of a FastAPI backend and a React frontend (PharmAI) that provides intelligent pharmaceutical market research and analysis capabilities.
+A pharmaceutical research and drug repurposing platform with a FastAPI backend and a React frontend. The app combines legacy agent-based analysis workflows with a more advanced repurpose/search/chat pipeline powered by LLMs, vector search, and report generation.
 
-## VIDEO LINK: https://drive.google.com/file/d/1Xm_jLXXHV3IJCCvUA35PVe857PgI0Nxw/view?usp=sharing
+## Video
 
-## 📋 Table of Contents
+https://drive.google.com/file/d/1Xm_jLXXHV3IJCCvUA35PVe857PgI0Nxw/view?usp=sharing
 
-- [Project Overview](#project-overview)
+## Table of Contents
+
+- [Overview](#overview)
 - [Architecture](#architecture)
 - [Prerequisites](#prerequisites)
 - [Quick Start](#quick-start)
 - [Environment Configuration](#environment-configuration)
 - [Project Structure](#project-structure)
-- [Backend features map](#where-major-backend-features-live) 
 - [API Documentation](#api-documentation)
 - [Troubleshooting](#troubleshooting)
+- [Notes](#notes)
 
-## 🎯 Project Overview
+## Overview
 
-ET PharmAI is an AI-powered pharmaceutical analysis platform that enables users to:
-- Conduct comprehensive pharmaceutical market research
-- Analyze drug molecules and compounds
-- Generate detailed reports with insights
-- Access demographic, market, patent, and clinical trial data
-- Export analysis reports as PDFs
+This repository contains two main parts:
 
-## 🏗️ Architecture
+1. Backend: a single FastAPI application that hosts the classic analysis API and the newer repurpose/search/chat capabilities.
+2. Frontend: a Vite + React app that provides the user interface for interacting with the backend.
 
-The project consists of two main components:
+Key capabilities include:
 
-1. **backend (Backend)**: One FastAPI process hosts every capability—classic ET analysis (`/api/run-agent`, PDF export, clinical-trials helpers) and extended APIs (search, chat, knowledge base, files, auth, WebSocket progress). There is no separate backend service or second Uvicorn app in this repository.
-2. **PharmAI (Frontend)**: React + Vite single-page application
+- Drug and market analysis workflows
+- LLM-powered research and summarization
+- Vector search / RAG with ChromaDB
+- PDF export and report generation
+- Optional MongoDB, Supabase, and auth layers
+- WebSocket-based live updates
 
+## Architecture
+
+```text
+┌──────────────────────┐
+│ Frontend (React)     │  http://localhost:5173
+│ Vite + React         │
+└──────────┬───────────┘
+           │ HTTP / WebSocket
+           ▼
+┌──────────────────────┐
+│ Backend (FastAPI)    │  http://localhost:8000
+│ Unified app          │
+│ - /api/run-agent     │
+│ - /health, /platform │
+│ - repurpose routes   │
+│ - WebSocket updates  │
+│ - LLM + vector store │
+└──────────────────────┘
 ```
-┌─────────────────┐
-│   PharmAI       │  React Frontend (Port 5173)
-│   (Frontend)    │
-└────────┬────────┘
-         │ HTTP/REST + WebSocket
-         │
-┌────────▼────────┐
-│     Backend     │  Single FastAPI app (Port 8000)
-│   (Backend)     │
-└─────────────────┘
-         │
-         ├── /api/run-agent, reports, tests (app/routes/agent_routes.py)
-         ├── Extended REST under /api, /api/auth, /api/knowledge (app/routes/repurpose/)
-         ├── WebSocket /ws/{session_id} (app/routes/repurpose/websocket.py)
-         ├── LLM: Gemini, Groq, Ollama (app/services/repurpose/llm/, app/services/gemini_service.py)
-         ├── Vector RAG: ChromaDB (app/services/repurpose/vector_store/)
-         ├── Optional MongoDB + JWT auth (app/services/repurpose/database/, auth/)
-         └── Optional Supabase (app/services/repurpose/database/supabase_client.py)
-```
 
-## 📦 Prerequisites
+The backend is intentionally a single app. It includes:
 
-Before you begin, ensure you have the following installed:
+- Classic agent workflow under `backend/app/agents/` and routes in `backend/app/routes/agent_routes.py`
+- Extended repurpose/search/chat exports under `backend/app/routes/repurpose/`
+- LangGraph orchestration in `backend/app/graph/`
+- LLM providers such as Gemini, Groq, and Ollama
+- Optional database integrations and authentication
 
-- **Python 3.8+** (for backend)
-- **Node.js 18+** and **npm** (for frontend)
-- **Google Gemini API Key** ([Get one here](https://makersuite.google.com/app/apikey))
+## Prerequisites
 
-## 🚀 Quick Start
+Before you start, ensure you have:
 
-### 1. Clone the Repository
+- Python 3.10+ recommended
+- Node.js 18+ and npm
+- A Google Gemini API key for the default LLM flow
+
+## Quick Start
+
+### 1) Clone the repository
 
 ```bash
-cd "~/Downloads/ET-Gen-AI-Hackathon-Team-bhuvesh18"
+git clone <repository-url>
+cd RepurposeAI
 ```
 
-### 2. Backend Setup (backend)
+### 2) Backend setup
 
 ```bash
-# Navigate to backend directory
 cd backend
+python -m venv .venv
 
-# Create virtual environment
-python3 -m venv venv
+# macOS / Linux
+source .venv/bin/activate
 
-# Activate virtual environment
-# On macOS/Linux:
-source venv/bin/activate
-# On Windows:
-# venv\Scripts\activate
+# Windows PowerShell
+# .venv\Scripts\Activate.ps1
 
-# Install dependencies
+# Windows CMD
+# .venv\Scripts\activate.bat
+
 pip install -r requirements.txt
-
-# Create .env file (see Environment Configuration section)
 cp .env.example .env
-# Edit .env with your configuration
-
-# Run the backend server
 python main.py
 ```
 
-The backend will start on `http://localhost:8000` (or the port specified in your `.env` file).
+The backend runs on:
 
-### 3. Frontend Setup (PharmAI)
+- http://localhost:8000
+- API docs: http://localhost:8000/docs
 
-Open a new terminal window:
+### 3) Frontend setup
+
+Open a second terminal:
 
 ```bash
-# Navigate to frontend directory
 cd frontend
-
-# Install dependencies
 npm install
-
-# Create .env file (see Environment Configuration section)
 cp .env.example .env
-# Edit .env with your configuration
-
-# Start the development server
 npm run dev
 ```
 
-The frontend will start on `http://localhost:5173` (default Vite port).
+The frontend runs on:
 
-### 4. Access the Application
+- http://localhost:5173
 
-Open your browser and navigate to:
-```
+### 4) Open the app
+
+Visit:
+
+```text
 http://localhost:5173
 ```
 
-## ⚙️ Environment Configuration
+## Environment Configuration
 
-### Backend (.env) - backend
+### Backend
 
-**Step 1:** Navigate to the `backend` directory:
+Copy the example file and update the values:
 
 ```bash
 cd backend
+cp .env.example .env
 ```
 
-**Step 2:** Create a `.env` file manually:
-
-```bash
-# On macOS/Linux:
-touch .env
-
-# On Windows:
-# type nul > .env
-```
-
-**Step 3:** Open the `.env` file in a text editor and add the following content:
+Example:
 
 ```env
-# Server Configuration
-PORT=8000
 FRONTEND_URL=http://localhost:5173
-
-# Google Gemini API Configuration
-# Get your API key from: https://makersuite.google.com/app/apikey
 GEMINI_API_KEY=your_gemini_api_key_here
+GEMINI_MODEL=gemini-2.5-flash
+GROQ_API_KEY=your_groq_api_key_here
+GROQ_MODEL=llama-3.3-70b-versatile
 ```
 
-**Required Variables:**
-- `GEMINI_API_KEY`: Your Google Gemini API key (required) - Replace `your_gemini_api_key_here` with your actual API key
-- `PORT`: Backend server port (default: 8000)
-- `FRONTEND_URL`: Frontend URL for CORS configuration (default: http://localhost:5173)
+Required / commonly used values:
 
-### Frontend (.env) - PharmAI
+- `GEMINI_API_KEY`: required for the default Gemini-based flows
+- `GEMINI_MODEL`: optional override for the Google model
+- `FRONTEND_URL`: used for CORS and local frontend access
+- `GROQ_API_KEY`: optional fallback provider
 
-**Step 1:** Navigate to the `frontend` directory:
+Optional integrations:
+
+- `SUPABASE_URL`, `SUPABASE_KEY`, `SUPABASE_SERVICE_ROLE_KEY`
+- `MONGODB_URI`, `USE_MONGODB=true`
+- `JWT_SECRET_KEY`, etc. for auth
+
+### Frontend
 
 ```bash
 cd frontend
+cp .env.example .env
 ```
 
-**Step 2:** Create a `.env` file manually:
-
-```bash
-# On macOS/Linux:
-touch .env
-
-# On Windows:
-# type nul > .env
-```
-
-**Step 3:** Open the `.env` file in a text editor and add the following content:
+Example:
 
 ```env
-# API Configuration
-# Backend API URL - should match the PORT in backend .env
 VITE_API_URL=http://localhost:8000
 ```
 
-**Required Variables:**
-- `VITE_API_URL`: Backend API URL (default: http://localhost:8000)
+Important:
 
-> **Note**: In Vite, environment variables must be prefixed with `VITE_` to be accessible in the frontend code. After creating or modifying `.env` files, restart the respective servers.
+- Vite env vars must start with `VITE_`
+- Restart the Vite dev server after changing environment variables
 
-## 📁 Project Structure
+## Project Structure
 
-```
-ET PharmAI/
-├── backend/          # Backend (single FastAPI app)
-│   ├── main.py                # Entry: builds app, registers all routes
+```text
+RepurposeAI/
+├── backend/
 │   ├── app/
-│   │   ├── platform_bootstrap.py   # Extended routes, /health, /platform, WS, startup hooks
-│   │   ├── paths.py                # BACKEND_ROOT, PDF template paths
-│   │   ├── repurpose_settings.py   # Pydantic settings (.env) for extended features
-│   │   ├── graph/                  # LangGraph workflow (state, nodes, workflow)
 │   │   ├── agents/
-│   │   │   ├── …                   # Classic ET agents (demographics, market, patent_trials, …)
-│   │   │   └── repurposing/        # Data-source agents for extended search/scoring pipeline
+│   │   ├── controllers/
+│   │   ├── graph/
+│   │   ├── models/
 │   │   ├── routes/
-│   │   │   ├── agent_routes.py     # /api/run-agent, PDF/PPTX, clinical-trials test, LLM test
-│   │   │   └── repurpose/          # search, chat, export, files, auth, knowledge, market, …
-│   │   ├── controllers/            # Classic pipeline controller
-│   │   ├── models/                 # Request/response models (classic)
-│   │   ├── schemas/                # Pydantic (incl. repurpose_api.py, repurpose_scoring.py)
-│   │   └── services/
-│   │       ├── gemini_service.py   # Classic Gemini + clinical tooling
-│   │       ├── export_report_pdf.py
-│   │       └── repurpose/          # LLM factory, cache, Chroma, Mongo, scoring, chat, …
-│   ├── database/supabase/          # SQL migrations (optional Supabase)
-│   ├── data/cache/                 # On-disk JSON cache (not Redis)
-│   ├── data/vector_db/             # Chroma persistence (default path from settings)
-│   ├── templates/pdf/              # Jinja HTML templates for PDF export
-│   ├── requirements.txt
-│   └── .env
-│
-└── frontend/              # Frontend (React + Vite)
-    ├── src/
-    │   ├── api/
-    │   ├── components/
-    │   ├── pages/
-    │   └── main.jsx
-    ├── package.json
-    └── .env
+│   │   ├── schemas/
+│   │   ├── services/
+│   │   ├── platform_bootstrap.py
+│   │   ├── repurpose_settings.py
+│   │   └── paths.py
+│   ├── data/
+│   │   ├── cache/
+│   │   ├── conversations/
+│   │   ├── internal_docs/
+│   │   ├── reports/
+│   │   └── vector_db/
+│   ├── database/
+│   │   └── supabase/
+│   ├── templates/
+│   ├── .env.example
+│   ├── main.py
+│   ├── README.md
+│   └── requirements.txt
+├── frontend/
+│   ├── src/
+│   ├── public/
+│   ├── .env.example
+│   ├── package.json
+│   ├── README.md
+│   ├── vite.config.js
+│   └── index.html
+├── README.md
+├── SETUP.md
+├── LICENSE
+└── .git/
 ```
 
-### Where major backend features live
+## API Documentation
 
-| Capability | Implemented? | Location (under `backend/`) |
-|------------|--------------|--------------------------------------|
-| **Redis** | **No** — not used anywhere in this repo. Caching is file-based JSON. | — |
-| **Disk cache** | Yes | `app/services/repurpose/cache/cache_manager.py`, `data/cache/` |
-| **Vector / RAG (ChromaDB)** | Yes | `app/services/repurpose/vector_store/` |
-| **MongoDB (optional)** | Yes, off by default (`USE_MONGODB`) | `app/services/repurpose/database/mongodb.py`, `repositories.py` |
-| **Supabase (optional)** | Yes, if `SUPABASE_URL` / key set | `app/services/repurpose/database/supabase_client.py`, `database/supabase/*.sql` |
-| **WebSocket (live updates)** | Yes | `app/routes/repurpose/websocket.py`, mounted in `app/platform_bootstrap.py` |
-| **JWT auth** | Yes | `app/services/repurpose/auth/`, routes in `app/routes/repurpose/auth.py` |
-| **LangGraph orchestration** | Yes | `app/graph/` |
-| **Extended REST (search, chat, export, …)** | Yes | `app/routes/repurpose/*.py` |
-| **Classic `/api/run-agent` pipeline** | Yes | `app/routes/agent_routes.py`, `app/controllers/agent_controller.py`, `app/agents/` |
-| **PDF / Excel export** | Yes | `app/services/export_report_pdf.py`, `app/services/repurpose/utils/html_pdf_generator.py`, `excel_generator.py` |
-| **Groq / Ollama** | Yes (optional) | `app/services/repurpose/llm/` |
+Once the backend is running:
 
-## 🔌 API Documentation
+- Swagger UI: http://localhost:8000/docs
+- ReDoc: http://localhost:8000/redoc
 
-Once the backend is running, you can access the interactive API documentation at:
+Main endpoints:
 
-- **Swagger UI**: `http://localhost:8000/docs`
-- **ReDoc**: `http://localhost:8000/redoc`
+- `POST /api/run-agent`
+- `GET /health`
+- `GET /platform`
+- Extended repurpose routes such as search, chat, export, and knowledge endpoints under `/api`
 
-### Main Endpoints
+Example request:
 
-#### POST `/api/run-agent`
-Run a pharmaceutical analysis agent with a query.
-
-**Request Body:**
 ```json
 {
-  "query": "Analyze the market potential for drug X",
+  "query": "Analyze market potential for a drug repurposing opportunity",
   "complexity": 5
 }
 ```
 
-**Response:**
-```json
-{
-  "agent_id": "unique-agent-id",
-  "analysis": "Detailed analysis...",
-  "recommendation": "Strategic recommendations..."
-}
-```
+## Troubleshooting
 
-#### POST `/api/generate-pdf`
-Generate a PDF report from analysis text.
+### Backend issues
 
-**Request Body:**
-```json
-{
-  "text": "Report content here..."
-}
-```
+#### `GEMINI_API_KEY not found`
 
-**Response:** PDF file download
+- Ensure `backend/.env` exists and includes a valid key
+- Restart the backend after updating the environment file
 
-## 🛠️ Development
+#### `Port already in use`
 
-### Backend Development
+- Change the port in `backend/.env` or stop the process that is already using it
 
-```bash
-cd backend
-source venv/bin/activate  # Activate virtual environment
-python main.py            # Run development server
-```
+#### CORS errors
 
-### Frontend Development
+- Check that `FRONTEND_URL` or `FRONTEND_URLS` matches the frontend URL
+- Ensure the frontend is running on the expected origin
 
-```bash
-cd frontend
-npm run dev              # Start Vite dev server with HMR
-npm run build            # Build for production
-npm run preview          # Preview production build
-```
+### Frontend issues
 
-## 🐛 Troubleshooting
+#### `Cannot connect to API`
 
-### Backend Issues
+- Confirm the backend is running
+- Check `VITE_API_URL` in `frontend/.env`
+- Verify the backend port and URL match the frontend config
 
-**Issue: `GEMINI_API_KEY not found`**
-- Solution: Ensure your `.env` file exists in `backend/` and contains a valid `GEMINI_API_KEY`
+#### Environment variables not loaded
 
-**Issue: `Port already in use`**
-- Solution: Change the `PORT` value in your `.env` file or stop the process using that port
+- Restart the Vite dev server
+- Make sure the variable names are prefixed with `VITE_`
 
-**Issue: CORS errors**
-- Solution: Verify `FRONTEND_URL` in backend `.env` matches your frontend URL
+### Dependency issues
 
-### Frontend Issues
+- Backend: run `pip install --upgrade pip` and then `pip install -r requirements.txt`
+- Frontend: remove `node_modules` and reinstall with `npm install`
 
-**Issue: `Cannot connect to API`**
-- Solution: Check that `VITE_API_URL` in frontend `.env` matches your backend URL and port
-- Ensure the backend server is running
+## Notes
 
-**Issue: Environment variables not loading**
-- Solution: Restart the Vite dev server after creating/modifying `.env` file
-- Ensure variables are prefixed with `VITE_`
+- The project uses a single FastAPI backend rather than multiple service apps
+- Local cache is file-based; Redis is not used in this repository
+- ChromaDB is used for vector/RAG functionality
+- Some integrations such as MongoDB, Supabase, and auth are optional and environment-dependent
+- Reports can be exported as PDFs and other structured outputs
 
-**Issue: `Module not found` errors**
-- Solution: Run `npm install` to ensure all dependencies are installed
+## License
 
-### General Issues
+This project currently does not include a custom license block in the repository. If you plan to distribute it publicly, add the appropriate license file and update this section.
 
-**Issue: Dependencies installation fails**
-- Solution: 
-  - Backend: Ensure you're using Python 3.8+ and try `pip install --upgrade pip` first
-  - Frontend: Try deleting `node_modules` and `package-lock.json`, then run `npm install` again
+## Related docs
 
-## 📝 Additional Notes
-
-- The backend uses Google's Gemini AI for query enhancement and report customization
-- The system supports multiple specialized agents for different analysis types
-- Reports can be exported as PDFs
-- The frontend uses React 19 with Vite for fast development and building
-
-## 🔐 Security Notes
-
-- Never commit `.env` files to version control
-- Keep your `GEMINI_API_KEY` secure and never share it publicly
-- Use environment-specific configurations for different deployment environments
-
-## 📄 License
-
-[Add your license information here]
-
-## 👥 Contributors
-
-## 👨‍💻 My Contribution
-
-- Contributed to project documentation and improved README structure for better usability
-- Assisted in building and understanding responsive Agentic AI workflows using FastAPI and LLM integrations
-- Contributed to concepts and implementation of Generative AI features for pharmaceutical analysis
-- Supported testing, debugging, and validation of backend APIs and frontend integration
-- Collaborated with team members on overall system design and feature development
-
----
-
-For more detailed information about each component, refer to:
-- [backend README](./backend/README.md)
-- [PharmAI README](./frontend/README.md)
+- [backend/README.md](backend/README.md)
+- [frontend/README.md](frontend/README.md)
+- [SETUP.md](SETUP.md)
