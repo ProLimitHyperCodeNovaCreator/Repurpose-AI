@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { User, Settings, LogOut, Menu, Command } from 'lucide-react';
+import { User, Settings, LogOut, Menu, Command, Moon, Sun } from 'lucide-react';
 import { ROUTES } from '../../utils/constants';
 import SearchInput from '../common/SearchInput';
 import NotificationCenter from '../common/NotificationCenter';
@@ -28,24 +28,24 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
   const navigate = useNavigate();
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [quickSearch, setQuickSearch] = useState('');
-  const { user } = useAppStore();
+  const { user, theme, toggleTheme } = useAppStore();
 
   const currentPath = location.pathname.startsWith('/results') ? '/results' : location.pathname;
-  const pageTitle = pageTitles[currentPath] || 'PharmAI';
+  const pageTitle = pageTitles[currentPath] || 'repurpose.ai';
 
   const handleQuickSearch = (value: string) => {
     if (value.trim()) { navigate(`${ROUTES.SEARCH}?drug=${encodeURIComponent(value.trim())}`); setQuickSearch(''); }
   };
 
   return (
-    <header className="h-14 bg-white/85 backdrop-blur-md border-b border-slate-200/90 px-6 flex items-center justify-between sticky top-0 z-40 shadow-sm shadow-slate-200/40">
+    <header className="h-14 bg-white/85 dark:bg-black/95 backdrop-blur-md border-b border-slate-200/90 dark:border-zinc-800 px-6 flex items-center justify-between sticky top-0 z-40 shadow-sm shadow-slate-200/40 dark:shadow-none">
       <div className="flex items-center gap-4">
-        <button onClick={onMenuClick} className="lg:hidden p-2 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-lg transition-colors">
+        <button onClick={onMenuClick} className="lg:hidden p-2 text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/5 rounded-lg transition-colors">
           <Menu className="w-5 h-5" />
         </button>
         <div className="flex flex-col">
           <Breadcrumbs />
-          <h1 className="text-sm font-semibold text-slate-900 leading-tight">{pageTitle}</h1>
+          <h1 className="text-sm font-semibold text-slate-900 dark:text-slate-100 leading-tight">{pageTitle}</h1>
         </div>
       </div>
 
@@ -56,35 +56,45 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
       <div className="flex items-center gap-2">
         <button
           onClick={() => document.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', ctrlKey: true }))}
-          className="hidden lg:flex items-center gap-1 px-2 py-1 text-[10px] text-slate-500 bg-slate-100 border border-slate-200 rounded-lg hover:border-cyan-400/40 transition-colors"
+          className="hidden lg:flex items-center gap-1 px-2 py-1 text-[10px] text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-black border border-slate-200 dark:border-zinc-700 rounded-lg hover:border-cyan-400/40 dark:hover:border-cyan-700/50 transition-colors"
         >
           <Command className="w-3 h-3" /> K
         </button>
 
         <NotificationCenter />
 
+        <button
+          type="button"
+          onClick={() => toggleTheme()}
+          className="p-2 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/5 hover:text-slate-800 dark:hover:text-slate-100 transition-colors"
+          title={theme === 'dark' ? 'Light mode' : 'Dark mode'}
+          aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+        >
+          {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+        </button>
+
         <div className="relative">
-          <button onClick={() => setShowUserMenu(!showUserMenu)} className="flex items-center gap-2 p-1.5 rounded-lg hover:bg-slate-100 transition-colors">
+          <button onClick={() => setShowUserMenu(!showUserMenu)} className="flex items-center gap-2 p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-white/5 transition-colors">
             <div className="w-7 h-7 bg-gradient-to-br from-cyan-500 to-teal-600 rounded-full flex items-center justify-center shadow-sm shadow-cyan-500/25">
               <User className="w-3.5 h-3.5 text-white" />
             </div>
-            <span className="hidden sm:block text-xs font-medium text-slate-700">{user?.username || 'User'}</span>
+            <span className="hidden sm:block text-xs font-medium text-slate-700 dark:text-slate-200">{user?.username || 'User'}</span>
           </button>
 
           <AnimatePresence>
             {showUserMenu && (
               <>
                 <div className="fixed inset-0 z-40" onClick={() => setShowUserMenu(false)} />
-                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 10 }} className="absolute right-0 mt-2 w-52 bg-white border border-slate-200 rounded-xl shadow-lg shadow-slate-200/50 z-50 overflow-hidden">
-                  <div className="p-3 border-b border-slate-100">
-                    <p className="font-medium text-sm text-slate-900">{user?.full_name || 'Guest User'}</p>
-                    <p className="text-xs text-slate-500">{user?.email || 'Sign in for full access'}</p>
+                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 10 }} className="absolute right-0 mt-2 w-52 bg-white dark:bg-black border border-slate-200 dark:border-zinc-800 rounded-xl shadow-lg shadow-slate-200/50 dark:shadow-none z-50 overflow-hidden">
+                  <div className="p-3 border-b border-slate-100 dark:border-zinc-800">
+                    <p className="font-medium text-sm text-slate-900 dark:text-slate-100">{user?.full_name || 'Guest User'}</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">{user?.email || 'Sign in for full access'}</p>
                   </div>
                   <div className="p-1.5">
-                    <button onClick={() => { navigate(ROUTES.SETTINGS); setShowUserMenu(false); }} className="w-full flex items-center gap-3 px-3 py-2 text-sm text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-lg transition-colors">
+                    <button onClick={() => { navigate(ROUTES.SETTINGS); setShowUserMenu(false); }} className="w-full flex items-center gap-3 px-3 py-2 text-sm text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-white/5 rounded-lg transition-colors">
                       <Settings className="w-4 h-4" /> Settings
                     </button>
-                    <button onClick={() => setShowUserMenu(false)} className="w-full flex items-center gap-3 px-3 py-2 text-sm text-red-600 hover:bg-red-50 rounded-lg transition-colors">
+                    <button onClick={() => setShowUserMenu(false)} className="w-full flex items-center gap-3 px-3 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/50 rounded-lg transition-colors">
                       <LogOut className="w-4 h-4" /> Sign out
                     </button>
                   </div>

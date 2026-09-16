@@ -46,28 +46,28 @@ const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose }) => {
     <AnimatePresence>
       {isOpen && (
         <>
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose} className="fixed inset-0 bg-slate-900/30 backdrop-blur-sm z-50" />
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose} className="fixed inset-0 bg-slate-900/30 dark:bg-black/60 backdrop-blur-sm z-50" />
           <motion.div
             initial={{ opacity: 0, y: -20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -20, scale: 0.95 }}
-            className="fixed left-1/2 top-[20%] -translate-x-1/2 w-full max-w-lg bg-white border border-slate-200 rounded-2xl shadow-xl shadow-slate-300/50 z-50 overflow-hidden"
+            className="fixed left-1/2 top-[20%] -translate-x-1/2 w-full max-w-lg bg-white dark:bg-black border border-slate-200 dark:border-zinc-800 rounded-2xl shadow-xl shadow-slate-300/50 dark:shadow-none z-50 overflow-hidden"
           >
-            <div className="flex items-center gap-3 px-4 py-3 border-b border-slate-100">
-              <Search className="w-5 h-5 text-slate-400" />
+            <div className="flex items-center gap-3 px-4 py-3 border-b border-slate-100 dark:border-zinc-800">
+              <Search className="w-5 h-5 text-slate-400 dark:text-slate-500" />
               <input
                 ref={inputRef}
                 value={query}
                 onChange={(e) => { setQuery(e.target.value); setSelectedIndex(0); }}
                 onKeyDown={handleKeyDown}
                 placeholder="Type a command or search..."
-                className="flex-1 bg-transparent text-slate-900 placeholder-slate-400 focus:outline-none text-sm"
+                className="flex-1 bg-transparent text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none text-sm"
               />
-              <kbd className="px-2 py-0.5 text-[10px] text-slate-500 bg-slate-100 border border-slate-200 rounded">ESC</kbd>
+              <kbd className="px-2 py-0.5 text-[10px] text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-black border border-slate-200 dark:border-zinc-700 rounded">ESC</kbd>
             </div>
             <div className="max-h-80 overflow-y-auto p-2">
               {filtered.length === 0 ? (
-                <p className="text-center text-sm text-slate-500 py-8">No results found</p>
+                <p className="text-center text-sm text-slate-500 dark:text-slate-400 py-8">No results found</p>
               ) : (
                 filtered.map((cmd, i) => {
                   const Icon = cmd.icon;
@@ -76,7 +76,9 @@ const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose }) => {
                       key={cmd.id}
                       onClick={() => handleSelect(cmd)}
                       className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-colors ${
-                        i === selectedIndex ? 'bg-cyan-50 text-cyan-800 border border-cyan-100' : 'text-slate-700 hover:bg-slate-50 border border-transparent'
+                        i === selectedIndex
+                          ? 'bg-cyan-50 dark:bg-black text-cyan-800 dark:text-cyan-300 border border-cyan-100 dark:border-cyan-800'
+                          : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 border border-transparent'
                       }`}
                     >
                       <Icon className="w-4 h-4" />

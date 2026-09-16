@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import RepurposeMark from './brand/RepurposeMark';
 
 // Define the structure of a history item
 export interface HistoryItem {
@@ -68,9 +69,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ history, onSelectHistory, onNe
           <div className="flex items-center justify-between">
             <div onClick={handleNewChat} className="cursor-pointer group">
               <h1 className="text-2xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 via-teal-500 to-cyan-600 group-hover:from-cyan-400 group-hover:via-teal-400 group-hover:to-cyan-500 transition-all">
-                PharmAI
+                repurpose.ai
               </h1>
-              <p className="text-[10px] text-slate-500 mt-0.5 uppercase tracking-wider font-medium">Intelligence Platform</p>
+              <p className="text-[10px] text-slate-500 mt-0.5 uppercase tracking-wider font-medium">Drug repurposing</p>
             </div>
             <div className="flex items-center gap-2">
               <button
@@ -92,11 +93,11 @@ export const Sidebar: React.FC<SidebarProps> = ({ history, onSelectHistory, onNe
           </div>
         ) : (
           <div className="flex flex-col items-center gap-3">
-            <div 
+            <div
               onClick={handleNewChat}
-              className="w-10 h-10 flex items-center justify-center bg-gradient-to-br from-cyan-500 to-teal-600 rounded-xl cursor-pointer hover:from-cyan-400 hover:to-teal-500 transition-all shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/30 hover:scale-105 touch-target"
+              className="w-10 h-10 rounded-xl cursor-pointer transition-all shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/30 hover:scale-105 touch-target overflow-hidden"
             >
-              <i className="fas fa-dna text-white text-lg"></i>
+              <RepurposeMark className="w-10 h-10" alt="" />
             </div>
             <button
               onClick={toggleMinimize}

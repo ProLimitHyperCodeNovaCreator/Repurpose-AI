@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Moon, Sun } from 'lucide-react';
+import useAppStore from '../store';
+import RepurposeMark from '../components/brand/RepurposeMark';
 
 export const Home: React.FC = () => {
   const navigate = useNavigate();
+  const theme = useAppStore((s) => s.theme);
+  const toggleTheme = useAppStore((s) => s.toggleTheme);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -10,8 +15,12 @@ export const Home: React.FC = () => {
     return () => clearTimeout(t);
   }, []);
 
+  useEffect(() => {
+    document.title = 'repurpose.ai – Drug repurposing intelligence';
+  }, []);
+
   return (
-    <div className="min-h-screen overflow-hidden bg-gradient-to-b from-slate-100/90 via-slate-50 to-slate-100/80 font-sans text-slate-800 relative">
+    <div className="min-h-screen overflow-hidden bg-gradient-to-b from-slate-100/90 via-slate-50 to-slate-100/80 dark:from-black dark:via-black dark:to-black dark:bg-black font-sans text-slate-800 dark:text-slate-200 relative">
       {/* Ambient background: gradients, molecules, line animations, particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Liquid gradient orbs */}
@@ -284,16 +293,27 @@ export const Home: React.FC = () => {
 
       {/* Content */}
       <div className="relative z-10 flex flex-col min-h-screen items-center justify-center px-6 py-16">
+        <div className="absolute top-4 right-4 z-20">
+          <button
+            type="button"
+            onClick={() => toggleTheme()}
+            className="p-3 rounded-xl bg-white/80 dark:bg-black border border-slate-200 dark:border-zinc-700 text-slate-600 dark:text-slate-300 shadow-sm hover:border-cyan-400/50 dark:hover:border-cyan-700/50 transition-colors"
+            title={theme === 'dark' ? 'Light mode' : 'Dark mode'}
+            aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+          >
+            {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+          </button>
+        </div>
         {/* Logo */}
         <div
           className={`flex items-center gap-3 mb-12 transition-all duration-1000 ${
             mounted ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-8'
           }`}
         >
-          <div className="w-14 h-14 flex items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-500 to-teal-600 shadow-lg shadow-cyan-500/30">
-            <i className="fas fa-dna text-white text-2xl" />
-          </div>
-          <span className="font-extrabold text-2xl md:text-3xl tracking-tight text-slate-800">PharmAI</span>
+          <RepurposeMark className="w-14 h-14 rounded-2xl shadow-lg shadow-cyan-500/30" alt="" />
+          <span className="font-extrabold text-2xl md:text-3xl tracking-tight text-slate-800 dark:text-slate-100">
+            repurpose<span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-teal-500 dark:from-cyan-400 dark:to-teal-400">.ai</span>
+          </span>
          
         </div>
 
@@ -303,14 +323,14 @@ export const Home: React.FC = () => {
             mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-slate-900 tracking-tight leading-[1.1] mb-6">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-slate-900 dark:text-slate-50 tracking-tight leading-[1.1] mb-6">
             Explore the future of {' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-teal-500 to-cyan-600 bg-[length:200%_auto] animate-gradient-shift">
-              Pharma
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-teal-500 to-cyan-600 dark:from-cyan-400 dark:via-teal-400 dark:to-cyan-400 bg-[length:200%_auto] animate-gradient-shift">
+              drug repurposing
             </span>
-            {' '}With PharmAI
+            {' '}with repurpose.ai
           </h1>
-          <p className="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto mb-14 font-medium leading-relaxed">
+          <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-14 font-medium leading-relaxed">
             AI-powered pharmaceutical intelligence for market analysis, patent landscape, and manufacturing feasibility.
           </p>
 
@@ -328,7 +348,7 @@ export const Home: React.FC = () => {
             <button
               type="button"
               onClick={() => navigate('/search')}
-              className="group relative inline-flex items-center gap-3 px-8 py-4 rounded-2xl font-bold text-slate-700 text-lg bg-white/80 border border-slate-200 shadow-md hover:shadow-lg hover:scale-105 active:scale-[0.98] transition-all duration-300"
+              className="group relative inline-flex items-center gap-3 px-8 py-4 rounded-2xl font-bold text-slate-700 dark:text-slate-200 text-lg bg-white/80 dark:bg-black border border-slate-200 dark:border-zinc-700 shadow-md hover:shadow-lg hover:scale-105 active:scale-[0.98] transition-all duration-300 dark:hover:border-zinc-600"
             >
               <span>Drug Search</span>
               <i className="fas fa-search text-lg group-hover:translate-x-1 transition-transform" />
@@ -336,7 +356,7 @@ export const Home: React.FC = () => {
             <button
               type="button"
               onClick={() => navigate('/dashboard')}
-              className="group relative inline-flex items-center gap-3 px-8 py-4 rounded-2xl font-bold text-slate-700 text-lg bg-white/80 border border-slate-200 shadow-md hover:shadow-lg hover:scale-105 active:scale-[0.98] transition-all duration-300"
+              className="group relative inline-flex items-center gap-3 px-8 py-4 rounded-2xl font-bold text-slate-700 dark:text-slate-200 text-lg bg-white/80 dark:bg-black border border-slate-200 dark:border-zinc-700 shadow-md hover:shadow-lg hover:scale-105 active:scale-[0.98] transition-all duration-300 dark:hover:border-zinc-600"
             >
               <span>Dashboard</span>
               <i className="fas fa-arrow-right text-lg group-hover:translate-x-1 transition-transform" />
@@ -346,27 +366,27 @@ export const Home: React.FC = () => {
 
         {/* Bottom decorative pill / features hint */}
         <div
-          className={`mt-20 flex flex-wrap justify-center gap-4 text-sm text-slate-500 transition-all duration-1000 delay-500 ${
+          className={`mt-20 flex flex-wrap justify-center gap-4 text-sm text-slate-500 dark:text-slate-400 transition-all duration-1000 delay-500 ${
             mounted ? 'opacity-100' : 'opacity-0'
           }`}
         >
-          <span className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 border border-slate-200/80 shadow-sm backdrop-blur-sm">
+          <span className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 dark:bg-black border border-slate-200/80 dark:border-zinc-700 shadow-sm backdrop-blur-sm">
             <i className="fas fa-robot text-cyan-500" />
             AI Chat Assistant
           </span>
-          <span className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 border border-slate-200/80 shadow-sm backdrop-blur-sm">
+          <span className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 dark:bg-black border border-slate-200/80 dark:border-zinc-700 shadow-sm backdrop-blur-sm">
             <i className="fas fa-search text-teal-500" />
             Unified drug search report
           </span>
-          <span className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 border border-slate-200/80 shadow-sm backdrop-blur-sm">
+          <span className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 dark:bg-black border border-slate-200/80 dark:border-zinc-700 shadow-sm backdrop-blur-sm">
             <i className="fas fa-chart-line text-cyan-500" />
             4D Composite Scoring
           </span>
-          <span className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 border border-slate-200/80 shadow-sm backdrop-blur-sm">
+          <span className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 dark:bg-black border border-slate-200/80 dark:border-zinc-700 shadow-sm backdrop-blur-sm">
             <i className="fas fa-flask text-teal-500" />
-            Process Design & TEA
+            Evidence &amp; strategy
           </span>
-          <span className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 border border-slate-200/80 shadow-sm backdrop-blur-sm">
+          <span className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 dark:bg-black border border-slate-200/80 dark:border-zinc-700 shadow-sm backdrop-blur-sm">
             <i className="fas fa-file-contract text-cyan-600" />
             Drug Comparison
           </span>

@@ -1,0 +1,24 @@
+2026-09-16 19:33:28 - drug_repurposing.websocket - INFO - websocket.py:51 - WebSocket ConnectionManager initialized
+2026-09-16 19:33:28 - drug_repurposing.conversations - INFO - conversation_manager.py:22 - Conversation manager initialized: data\conversations
+2026-09-16 19:33:28 - drug_repurposing.cache - INFO - cache_manager.py:30 - Cache manager initialized: data\cache
+2026-09-16 19:33:28 - drug_repurposing.cache - INFO - cache_manager.py:31 - Cache TTL: 604800 seconds (7.0 days)
+2026-09-16 19:33:28 - drug_repurposing.cache - INFO - cache_manager.py:30 - Cache manager initialized: data\cache
+2026-09-16 19:33:28 - drug_repurposing.cache - INFO - cache_manager.py:31 - Cache TTL: 604800 seconds (7.0 days)
+2026-09-16 19:33:28 - drug_repurposing.conversations - INFO - conversation_manager.py:22 - Conversation manager initialized: data\conversations
+2026-09-16 19:33:28 - drug_repurposing.archive - INFO - report_archive_manager.py:29 - Report archive initialized: data\reports
+2026-09-16 19:33:28 - drug_repurposing.archive - INFO - report_archive_manager.py:29 - Report archive initialized: data\reports
+2026-09-16 19:33:28 - drug_repurposing.archive - INFO - report_archive_manager.py:29 - Report archive initialized: data\reports
+2026-09-16 19:33:28 - drug_repurposing.cache - INFO - cache_manager.py:30 - Cache manager initialized: data\cache
+2026-09-16 19:33:28 - drug_repurposing.cache - INFO - cache_manager.py:31 - Cache TTL: 604800 seconds (7.0 days)
+2026-09-16 19:33:29 - drug_repurposing.websocket - INFO - websocket.py:63 - WebSocket connected: ef979a0e-d20d-4f68-8bc1-7e41b98d9b5a
+2026-09-16 19:33:30 - drug_repurposing.websocket - INFO - websocket.py:82 - WebSocket disconnected: ef979a0e-d20d-4f68-8bc1-7e41b98d9b5a
+2026-09-16 19:33:30 - drug_repurposing.websocket - INFO - websocket.py:220 - Client disconnected: ef979a0e-d20d-4f68-8bc1-7e41b98d9b5a
+2026-09-16 19:33:34 - drug_repurposing.websocket - INFO - websocket.py:63 - WebSocket connected: ef979a0e-d20d-4f68-8bc1-7e41b98d9b5a
+2026-09-16 19:33:37 - drug_repurposing.websocket - INFO - websocket.py:63 - WebSocket connected: ad4ac1bf-b3f4-4478-90cf-47f5709cd7c1
+2026-09-16 19:33:39 - drug_repurposing.websocket - INFO - websocket.py:82 - WebSocket disconnected: ad4ac1bf-b3f4-4478-90cf-47f5709cd7c1
+2026-09-16 19:33:39 - drug_repurposing.websocket - INFO - websocket.py:220 - Client disconnected: ad4ac1bf-b3f4-4478-90cf-47f5709cd7c1
+2026-09-16 19:33:42 - drug_repurposing.websocket - INFO - websocket.py:63 - WebSocket connected: ad4ac1bf-b3f4-4478-90cf-47f5709cd7c1
+2026-09-16 19:33:57 - drug_repurposing.websocket - INFO - websocket.py:82 - WebSocket disconnected: ad4ac1bf-b3f4-4478-90cf-47f5709cd7c1
+2026-09-16 19:33:57 - drug_repurposing.websocket - INFO - websocket.py:220 - Client disconnected: ad4ac1bf-b3f4-4478-90cf-47f5709cd7c1
+2026-09-16 19:33:57 - drug_repurposing.websocket - INFO - websocket.py:82 - WebSocket disconnected: ef979a0e-d20d-4f68-8bc1-7e41b98d9b5a
+2026-09-16 19:33:57 - drug_repurposing.websocket - INFO - websocket.py:220 - Client disconnected: ef979a0e-d20d-4f68-8bc1-7e41b98d9b5a

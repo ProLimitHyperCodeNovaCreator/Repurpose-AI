@@ -18,11 +18,11 @@ const ShortcutsModal: React.FC<ShortcutsModalProps> = ({ isOpen, onClose }) => {
     <Modal isOpen={isOpen} onClose={onClose} title="Keyboard Shortcuts">
       <div className="space-y-3">
         {shortcuts.map((s, i) => (
-          <div key={i} className="flex items-center justify-between py-2 border-b border-slate-100 last:border-0">
-            <span className="text-sm text-slate-700">{s.action}</span>
+          <div key={i} className="flex items-center justify-between py-2 border-b border-slate-100 dark:border-zinc-800 last:border-0">
+            <span className="text-sm text-slate-700 dark:text-slate-300">{s.action}</span>
             <div className="flex gap-1">
               {s.keys.map((k, j) => (
-                <kbd key={j} className="px-2 py-1 text-xs bg-slate-100 text-slate-700 rounded-lg border border-slate-200">{k}</kbd>
+                <kbd key={j} className="px-2 py-1 text-xs bg-slate-100 dark:bg-black text-slate-700 dark:text-slate-300 rounded-lg border border-slate-200 dark:border-zinc-700">{k}</kbd>
               ))}
             </div>
           </div>

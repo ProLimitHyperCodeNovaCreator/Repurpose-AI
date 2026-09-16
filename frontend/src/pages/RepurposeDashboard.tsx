@@ -56,15 +56,15 @@ const RepurposeDashboard: React.FC = () => {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="space-y-6"
+      className="space-y-6 text-slate-800 dark:text-slate-200"
     >
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
-          <h1 className="text-2xl md:text-3xl font-bold text-slate-900">
+          <h1 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-slate-50">
             Welcome back{user?.name ? `, ${user.name}` : ''}
           </h1>
-          <p className="text-sm text-slate-600 mt-1">
-            PharmAI Drug Repurposing Intelligence Platform
+          <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+            repurpose.ai — drug repurposing intelligence
           </p>
         </div>
         <Badge variant="teal" size="lg">
@@ -87,7 +87,7 @@ const RepurposeDashboard: React.FC = () => {
           <motion.div key={stat.label} variants={fadeUp}>
             <Card className={`border-l-2 ${stat.color}`}>
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-black dark:border dark:border-zinc-800 flex items-center justify-center">
                   {stat.icon}
                 </div>
                 <div>

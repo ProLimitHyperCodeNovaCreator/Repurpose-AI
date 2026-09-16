@@ -12,6 +12,7 @@ import { MolecularDetailsCard } from '../components/MolecularDetailsCard';
 import { InvestmentMemo } from '../components/InvestmentMemo';
 import { CompetitorIntelligenceCard } from '../components/CompetitorIntelligenceCard';
 import { AgentAPI } from '../api/endpoints';
+import RepurposeMark from '../components/brand/RepurposeMark';
 
 const QUERY_PLACEHOLDER = 'e.g. Paracetamol API market analysis, Roflumilast repurposing...';
 const LOADING_MESSAGES = [
@@ -39,14 +40,14 @@ export const Dashboard: React.FC = () => {
 
   // Update document title when result/loading changes
   useEffect(() => {
-    document.title = loading ? 'Analyzing... – PharmAI' : result?.query_context?.drug ? `${result.query_context.drug} – PharmAI` : 'PharmAI – Pharmaceutical Intelligence';
+    document.title = loading ? 'Analyzing… – repurpose.ai' : result?.query_context?.drug ? `${result.query_context.drug} – repurpose.ai` : 'repurpose.ai – Drug repurposing intelligence';
   }, [loading, result]);
 
   // Debug: log query_context (Symptoms / Disease / Side effects) when result is set
   useEffect(() => {
     if (result?.query_context) {
       const qc = result.query_context;
-      console.log('[PharmAI] query_context from backend:', {
+      console.log('[repurpose.ai] query_context from backend:', {
         drug: qc.drug,
         disease: qc.disease,
         symptoms: qc.symptoms,
@@ -174,7 +175,7 @@ export const Dashboard: React.FC = () => {
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', `PharmAI_Full_Report_${safeName}.pdf`);
+      link.setAttribute('download', `repurpose_ai_full_report_${safeName}.pdf`);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -193,7 +194,7 @@ export const Dashboard: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-100/80 to-slate-50 font-sans text-slate-800">
+    <div className="min-h-screen bg-gradient-to-b from-slate-100/80 to-slate-50 dark:from-black dark:to-black dark:bg-black font-sans text-slate-800 dark:text-slate-200">
       
       {/* Mock Logout page overlay */}
       {showLogoutPage && (
@@ -209,7 +210,7 @@ export const Dashboard: React.FC = () => {
               onClick={() => setShowLogoutPage(false)}
               className="px-6 py-3 bg-cyan-600 hover:bg-cyan-700 text-white font-semibold rounded-xl transition-colors"
             >
-              Back to PharmAI
+              Back to repurpose.ai
             </button>
           </div>
         </div>
@@ -253,10 +254,8 @@ export const Dashboard: React.FC = () => {
               </button>
             )}
             <div className="flex items-center gap-2 md:gap-3">
-              <div className="w-9 h-9 flex items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500 to-teal-600 shadow-md">
-                <i className="fas fa-dna text-white text-lg"></i>
-              </div>
-              <span className="font-extrabold text-lg tracking-tight text-slate-800">PharmAI</span>
+              <RepurposeMark className="w-9 h-9 rounded-xl shadow-md shadow-cyan-500/25" alt="" />
+              <span className="font-extrabold text-lg tracking-tight text-slate-800">repurpose.ai</span>
             </div>
           </div>
         </header>
@@ -269,7 +268,7 @@ export const Dashboard: React.FC = () => {
             {!result && !loading && (
               <div className="animate-fade-in-up">
                  <div className="inline-block p-6 md:p-8 rounded-2xl mb-6 md:mb-8 card-elevated border border-slate-200/60 glow-cyan">
-                    <i className="fas fa-dna text-5xl md:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-teal-500"></i>
+                    <RepurposeMark className="w-20 h-20 md:w-28 md:h-28 mx-auto" alt="" />
                  </div>
                  <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 mb-4 md:mb-6 tracking-tight leading-tight">
                    Discover the <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-teal-600">Future of Pharma</span>
@@ -329,7 +328,7 @@ export const Dashboard: React.FC = () => {
                 <div className="relative mb-10">
                   <div className="w-28 h-28 rounded-full border-4 border-slate-200 border-t-cyan-500 border-r-teal-500 animate-spin" />
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <i className="fas fa-dna text-3xl text-cyan-500/80 animate-pulse" />
+                    <RepurposeMark className="w-11 h-11 opacity-90 animate-pulse" alt="" />
                   </div>
                 </div>
                 <h3 className="text-2xl font-bold text-slate-800 mb-2">Orchestrating Agents</h3>

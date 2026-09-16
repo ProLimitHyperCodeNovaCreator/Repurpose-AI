@@ -31,6 +31,22 @@ body {
   padding-bottom: env(safe-area-inset-bottom);
 }
 
+html.dark {
+  color-scheme: dark;
+  background-color: #000000;
+}
+
+html.dark body {
+  color: #e2e8f0;
+  background-color: #000000;
+}
+
+/* Ensure the React root fills the viewport with the same canvas color */
+html.dark #root {
+  min-height: 100dvh;
+  background-color: #000000;
+}
+
 .scrollbar-thin::-webkit-scrollbar {
   width: 4px;
 }
@@ -43,6 +59,13 @@ body {
 }
 .scrollbar-thin::-webkit-scrollbar-thumb:hover {
   background: rgba(15, 23, 42, 0.22);
+}
+
+html.dark .scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.25);
+}
+html.dark .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.4);
 }
 
 .prose-invert {
