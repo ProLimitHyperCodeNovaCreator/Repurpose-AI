@@ -152,7 +152,7 @@ const Results: React.FC = () => {
           return typeof v === 'number' ? v : null;
         })
         .filter((v: any): v is number => v != null);
-      result[d] = scores.length > 0 ? scores.reduce((a, b) => a + b, 0) / scores.length : 0;
+      result[d] = scores.length > 0 ? scores.reduce((a: number, b: number) => a + b, 0) / scores.length : 0;
     });
     return result;
   }, [searchResults, opportunities]);
